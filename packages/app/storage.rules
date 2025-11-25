@@ -1,0 +1,105 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    function isValidAudioFile() {
+      return request.resource.contentType.matches('audio/.*') &&
+             request.resource.size < 50 * 1024 * 1024; // 50MB limit
+    }
+    
+    function isValidImageFile() {
+      return request.resource.contentType.matches('image/.*') &&
+             request.resource.size < 10 * 1024 * 1024; // 10MB limit
+    }
+    
+    function isValidAvatarFile() {
+      return request.resource.contentType.matches('image/.*') &&
+             request.resource.size < 2 * 1024 * 1024; // 2MB limit for avatars
+    }
+    
+    // Beat audio files
+    match /beats/{userId}/{beatId}/{fileName} {
+      allow read: if true; // Public read for streaming
+      allow write: if isOwner(userId) && isValidAudioFile();
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+    
+    // Beat previews (30-second clips)
+    match /previews/{userId}/{beatId}/{fileName} {
+      allow read: if true; // Public read for previews
+      allow write: if isOwner(userId) && isValidAudioFile();
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+    
+    // Beat stems (individual tracks)
+    match /stems/{userId}/{beatId}/{fileName} {
+      allow read: if isAuthenticated(); // Only authenticated users can access stems
+      allow write: if isOwner(userId) && isValidAudioFile();
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+    
+    // User avatars
+    match /avatars/{userId}/{fileName} {
+      allow read: if true; // Public read for profile images
+      allow write: if isOwner(userId) && isValidAvatarFile();
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+    
+    // Producer hero images
+    match /producer-heroes/{userId}/{fileName} {
+      allow read: if true; // Public read for producer pages
+      allow write: if isOwner(userId) && isValidImageFile();
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+    
+    // Beat cover images
+    match /covers/{userId}/{beatId}/{fileName} {
+      allow read: if true; // Public read for marketplace
+      allow write: if isOwner(userId) && isValidImageFile();
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+    
+    // Purchased content (only accessible by buyers)
+    match /purchased/{userId}/{purchaseId}/{fileName} {
+      allow read: if isOwner(userId);
+      allow write: if isAdmin(); // Only system can write purchased content
+    }
+    
+    // Admin uploads
+    match /admin/{allPaths=**} {
+      allow read, write: if isAdmin();
+    }
+    
+    // Site logos and branding (admin only)
+    match /site-assets/{fileName} {
+      allow read: if true; // Public read for site logos
+      allow write: if isAdmin() && isValidImageFile();
+      allow delete: if isAdmin();
+    }
+    
+    // Open Graph images
+    match /og-images/{fileName} {
+      allow read: if true; // Public read for social sharing
+      allow write: if isAdmin() && isValidImageFile();
+      allow delete: if isAdmin();
+    }
+    
+    // Temporary uploads (auto-delete after 24h)
+    match /temp/{userId}/{fileName} {
+      allow read, write: if isOwner(userId);
+    }
+  }
+}

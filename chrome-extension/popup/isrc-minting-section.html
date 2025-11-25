@@ -1,0 +1,143 @@
+<!-- ISRC Professional Minting Section -->
+<section id="isrc-minting-section" class="section">
+  <div class="section-header">
+    <h2>🎵 ISRC Professional Registration</h2>
+    <p class="section-subtitle">Industry-standard music identification codes</p>
+  </div>
+
+  <div class="isrc-container">
+    <!-- ISRC Generation Card -->
+    <div class="isrc-card">
+      <div class="card-header">
+        <h3>Generate ISRC Code</h3>
+        <span class="status-badge" id="isrc-status">Ready</span>
+      </div>
+      
+      <div class="isrc-preview">
+        <div class="isrc-display">
+          <span class="isrc-code" id="generated-isrc">ZA-80G-25-00000</span>
+          <button class="copy-btn" id="copy-isrc">📋</button>
+        </div>
+        <div class="isrc-breakdown">
+          <span class="isrc-part">ZA <small>Country</small></span>
+          <span class="isrc-part">80G <small>Registrant</small></span>
+          <span class="isrc-part">25 <small>Year</small></span>
+          <span class="isrc-part">00000 <small>Designation</small></span>
+        </div>
+      </div>
+
+      <div class="isrc-actions">
+        <button class="btn-primary" id="generate-isrc">Generate New ISRC</button>
+        <button class="btn-secondary" id="validate-isrc">Validate Code</button>
+      </div>
+    </div>
+
+    <!-- Metadata Integration Card -->
+    <div class="metadata-card">
+      <div class="card-header">
+        <h3>Metadata Integration</h3>
+        <div class="integration-status">
+          <span class="status-dot active"></span>
+          <span>Auto-Embed Enabled</span>
+        </div>
+      </div>
+      
+      <div class="metadata-targets">
+        <div class="target-item">
+          <span class="target-icon">🎵</span>
+          <span class="target-name">Audio File (ID3v2)</span>
+          <span class="target-status">✅</span>
+        </div>
+        <div class="target-item">
+          <span class="target-icon">🖼️</span>
+          <span class="target-name">Cover Art (EXIF)</span>
+          <span class="target-status">✅</span>
+        </div>
+        <div class="target-item">
+          <span class="target-icon">🔗</span>
+          <span class="target-name">NFT Metadata</span>
+          <span class="target-status">✅</span>
+        </div>
+        <div class="target-item">
+          <span class="target-icon">☁️</span>
+          <span class="target-name">IPFS Storage</span>
+          <span class="target-status">✅</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sponsored Content Placement -->
+    <div class="sponsor-placement-card">
+      <div class="card-header">
+        <h3>🎯 Sponsored Content Opportunity</h3>
+        <span class="revenue-badge">+$2.50 Revenue</span>
+      </div>
+      
+      <div class="sponsor-content" id="isrc-sponsor-content">
+        <div class="sponsor-banner">
+          <div class="sponsor-logo">
+            <img src="../assets/sponsor-placeholder.png" alt="Sponsor" />
+          </div>
+          <div class="sponsor-message">
+            <h4>Professional Music Distribution</h4>
+            <p>Get your music on Spotify, Apple Music & more with industry-standard ISRC codes</p>
+            <button class="sponsor-cta">Learn More</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="sponsor-controls">
+        <label class="checkbox-container">
+          <input type="checkbox" id="enable-sponsor-isrc" checked>
+          <span class="checkmark"></span>
+          Enable sponsored content (+$2.50 per mint)
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ISRC Registry Preview -->
+  <div class="isrc-registry">
+    <div class="registry-header">
+      <h3>Your ISRC Registry</h3>
+      <span class="registry-count" id="isrc-count">0 codes generated</span>
+    </div>
+    
+    <div class="registry-list" id="isrc-registry-list">
+      <!-- Registry items populated here -->
+    </div>
+    
+    <div class="registry-actions">
+      <button class="btn-secondary" id="export-registry">Export Registry</button>
+      <button class="btn-secondary" id="view-all-isrc">View All Codes</button>
+    </div>
+  </div>
+
+  <!-- Minting Integration -->
+  <div class="minting-integration">
+    <div class="integration-header">
+      <h3>Ready for Minting</h3>
+      <div class="integration-checklist">
+        <div class="check-item">
+          <span class="check-icon">✅</span>
+          <span>ISRC Generated</span>
+        </div>
+        <div class="check-item">
+          <span class="check-icon">✅</span>
+          <span>Metadata Embedded</span>
+        </div>
+        <div class="check-item">
+          <span class="check-icon">✅</span>
+          <span>Registry Updated</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="minting-actions">
+      <button class="btn-primary btn-large" id="proceed-to-mint">
+        Proceed to NFT Minting
+        <span class="btn-arrow">→</span>
+      </button>
+    </div>
+  </div>
+</section>

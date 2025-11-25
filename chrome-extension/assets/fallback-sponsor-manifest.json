@@ -1,0 +1,61 @@
+{
+  "version": "1.0.0",
+  "settings": {
+    "refresh_interval": 3600000,
+    "max_sponsors_per_placement": 3,
+    "post_package_delay": 2000,
+    "post_package_duration": 10000
+  },
+  "sponsors": [
+    {
+      "id": "beatschain_premium",
+      "name": "BeatsChain Premium",
+      "message": "Unlock advanced features with BeatsChain Premium - Enhanced ISRC management, priority support, and exclusive tools for professional music creators.",
+      "logo_url": "https://via.placeholder.com/120x60/4F46E5/FFFFFF?text=BeatsChain",
+      "website": "https://beatschain.com/premium",
+      "placement": "after_isrc",
+      "active": true,
+      "priority": 1
+    },
+    {
+      "id": "samro_compliance",
+      "name": "SAMRO Compliance Pro",
+      "message": "Ensure full SAMRO compliance with automated split sheets and professional documentation for South African radio submissions.",
+      "logo_url": "https://via.placeholder.com/120x60/28A745/FFFFFF?text=SAMRO+Pro",
+      "website": "https://samro.org.za",
+      "placement": "validation",
+      "active": true,
+      "priority": 2
+    },
+    {
+      "id": "radio_boost",
+      "name": "Radio Boost Service",
+      "message": "Get your tracks heard! Professional radio promotion and playlist placement services for independent artists.",
+      "logo_url": "https://via.placeholder.com/120x60/DC3545/FFFFFF?text=Radio+Boost",
+      "website": "https://radioboost.com",
+      "placement": "validation",
+      "active": true,
+      "priority": 3
+    },
+    {
+      "id": "music_promotion",
+      "name": "Music Promotion Pro",
+      "message": "Your radio package is ready! Take the next step with professional music promotion, playlist placement, and airplay tracking services.",
+      "logo_url": "https://via.placeholder.com/120x60/6F42C1/FFFFFF?text=Promo+Pro",
+      "website": "https://musicpromotion.pro",
+      "placement": "post_package",
+      "active": true,
+      "priority": 1
+    },
+    {
+      "id": "airplay_tracker",
+      "name": "Airplay Analytics",
+      "message": "Track your radio success! Monitor airplay, measure reach, and optimize your radio campaign with professional analytics.",
+      "logo_url": "https://via.placeholder.com/120x60/17A2B8/FFFFFF?text=Airplay",
+      "website": "https://airplayanalytics.com",
+      "placement": "post_package",
+      "active": true,
+      "priority": 2
+    }
+  ]
+}

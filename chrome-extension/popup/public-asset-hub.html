@@ -1,0 +1,63 @@
+<!-- Public Asset Hub Section -->
+<section id="public-hub-section" class="section">
+  <div class="hub-header">
+    <h2>🎵 BeatsChain Asset Hub</h2>
+    <div class="hub-controls">
+      <div class="search-bar">
+        <input type="text" id="asset-search" placeholder="Search by title, artist, ISRC..." />
+        <button id="search-btn">🔍</button>
+      </div>
+      <div class="filter-controls">
+        <select id="asset-type-filter">
+          <option value="all">All Assets</option>
+          <option value="nft">NFTs</option>
+          <option value="campaign">Campaigns</option>
+          <option value="isrc">ISRC Codes</option>
+        </select>
+        <select id="sort-options">
+          <option value="newest">Newest First</option>
+          <option value="popular">Most Popular</option>
+          <option value="trending">Trending</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  
+  <div class="hub-stats">
+    <div class="stat-item">
+      <span class="stat-number" id="total-assets">0</span>
+      <span class="stat-label">Total Assets</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" id="total-plays">0</span>
+      <span class="stat-label">Total Plays</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" id="active-campaigns">0</span>
+      <span class="stat-label">Active Campaigns</span>
+    </div>
+  </div>
+
+  <div class="hub-content">
+    <div id="asset-grid" class="asset-hub">
+      <!-- Asset cards populated here -->
+    </div>
+    
+    <div class="hub-pagination">
+      <button id="load-more" class="btn-secondary">Load More Assets</button>
+    </div>
+  </div>
+
+  <!-- Asset Detail Modal -->
+  <div id="asset-detail-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Asset Details</h3>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body" id="asset-detail-content">
+        <!-- Asset details populated here -->
+      </div>
+    </div>
+  </div>
+</section>

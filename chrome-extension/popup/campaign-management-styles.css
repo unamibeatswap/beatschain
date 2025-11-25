@@ -1,0 +1,771 @@
+/* Campaign Management Styles - Following BeatsChain Extension Design Patterns */
+
+/* Campaign Section Header */
+.campaigns-section {
+    margin-top: 16px;
+}
+
+.campaigns-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #444;
+}
+
+.campaigns-header h6 {
+    margin: 0;
+    color: #00d67a;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.campaign-filters {
+    display: flex;
+    gap: 8px;
+}
+
+.campaign-filters select {
+    padding: 4px 8px;
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: #fff;
+    min-width: 120px;
+}
+
+/* Campaign List Container */
+.campaigns-container {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+.no-campaigns {
+    padding: 32px 20px;
+    text-align: center;
+    color: #999;
+    background: linear-gradient(135deg, rgba(0, 214, 122, 0.1), rgba(0, 214, 122, 0.05));
+    border-radius: 8px;
+    border: 1px dashed #00d67a;
+}
+
+.no-campaigns::before {
+    content: "🚀";
+    display: block;
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+/* Enhanced Campaign Card */
+.campaign-card {
+    border-bottom: 1px solid #333;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.3s ease;
+    position: relative;
+    border-left: 3px solid transparent;
+}
+
+.campaign-card:hover {
+    background: rgba(0, 214, 122, 0.1);
+    border-left-color: #00d67a;
+    transform: translateX(2px);
+}
+
+.campaign-card:last-child {
+    border-bottom: none;
+}
+
+.campaign-card[data-status="active"] {
+    border-left-color: #28a745;
+}
+
+.campaign-card[data-status="scheduled"] {
+    border-left-color: #ffc107;
+}
+
+.campaign-card[data-status="paused"] {
+    border-left-color: #6c757d;
+}
+
+.campaign-card[data-status="completed"] {
+    border-left-color: #17a2b8;
+}
+
+.campaign-card[data-status="cancelled"] {
+    border-left-color: #dc3545;
+}
+
+/* Campaign Card Header */
+.campaign-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.campaign-title {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.campaign-title h6 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.campaign-title h6::before {
+    content: "📊";
+    font-size: 14px;
+}
+
+.campaign-subtitle {
+    display: flex;
+    gap: 12px;
+    font-size: 11px;
+    color: #999;
+}
+
+.campaign-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.campaign-actions {
+    display: flex;
+    gap: 6px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.campaign-card:hover .campaign-actions {
+    opacity: 1;
+}
+
+/* Enhanced Action Buttons */
+.btn-small {
+    padding: 6px 10px;
+    font-size: 11px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-small::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-small:hover::before {
+    left: 100%;
+}
+
+.btn-small.btn-secondary {
+    background: linear-gradient(135deg, #6c757d, #5a6268);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-small.btn-secondary:hover {
+    background: linear-gradient(135deg, #5a6268, #495057);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-small.btn-danger {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
+}
+
+.btn-small.btn-danger:hover {
+    background: linear-gradient(135deg, #c82333, #bd2130);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.4);
+}
+
+.btn-small.btn-info {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+    color: white;
+    box-shadow: 0 2px 4px rgba(23, 162, 184, 0.3);
+}
+
+.btn-small.btn-info:hover {
+    background: linear-gradient(135deg, #138496, #117a8b);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(23, 162, 184, 0.4);
+}
+
+.btn-small.btn-success {
+    background: linear-gradient(135deg, #28a745, #218838);
+    color: white;
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+}
+
+.btn-small.btn-success:hover {
+    background: linear-gradient(135deg, #218838, #1e7e34);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.4);
+}
+
+/* Enhanced Campaign Details */
+.campaign-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.campaign-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.campaign-info small {
+    font-size: 11px;
+    color: #bbb;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.campaign-info small::before {
+    content: "•";
+    color: #00d67a;
+    font-weight: bold;
+}
+
+.campaign-metrics {
+    display: flex;
+    gap: 16px;
+    background: rgba(0, 214, 122, 0.1);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 214, 122, 0.2);
+}
+
+.metric-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 60px;
+    position: relative;
+}
+
+.metric-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.metric-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: #00d67a;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.metric-label {
+    font-size: 9px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+}
+
+/* Campaign Form Modal */
+.campaign-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.campaign-form-modal {
+    background: #2d2d2d;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 1px solid #444;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #444;
+    background: #333;
+    border-radius: 8px 8px 0 0;
+}
+
+.form-header h5 {
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.close-form-btn {
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.close-form-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+/* Campaign Form */
+.campaign-form {
+    padding: 20px;
+}
+
+.campaign-form .form-row {
+    margin-bottom: 16px;
+}
+
+.campaign-form label {
+    display: block;
+    margin-bottom: 6px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.campaign-form .form-input {
+    width: 100%;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #555;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.campaign-form .form-input:focus {
+    outline: none;
+    border-color: #4CAF50;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.campaign-form .form-input::placeholder {
+    color: #999;
+}
+
+.campaign-form .field-help {
+    display: block;
+    margin-top: 4px;
+    font-size: 11px;
+    color: #777;
+}
+
+.form-grid-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #444;
+}
+
+.form-actions .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: #4CAF50;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #45a049;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.cancel-campaign-btn {
+    background: transparent;
+    border: 1px solid #6c757d !important;
+    color: #6c757d;
+}
+
+.cancel-campaign-btn:hover {
+    background: #6c757d;
+    color: white;
+}
+
+/* Form Validation States */
+.form-input:invalid {
+    border-color: #dc3545;
+}
+
+.form-input:valid {
+    border-color: #28a745;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .campaign-form-modal {
+        width: 95%;
+        margin: 20px;
+    }
+    
+    .form-grid-two-col {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .campaign-details {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .campaign-metrics {
+        align-self: stretch;
+        justify-content: space-around;
+    }
+}
+
+/* Animation for new campaigns */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.campaign-card.new {
+    animation: slideIn 0.3s ease-out;
+}
+/* Campaign Management Action Buttons */
+.campaign-actions-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.campaign-actions-row .btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.campaign-actions-row .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.campaign-actions-row .btn:hover::before {
+    left: 100%;
+}
+
+.campaign-actions-row .btn-primary {
+    background: linear-gradient(135deg, #00d67a, #00b366);
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 214, 122, 0.3);
+}
+
+.campaign-actions-row .btn-primary:hover {
+    background: linear-gradient(135deg, #00b366, #009954);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 214, 122, 0.4);
+}
+
+.campaign-actions-row .btn-secondary {
+    background: linear-gradient(135deg, #6c757d, #5a6268);
+    color: white;
+    box-shadow: 0 2px 8px rgba(108, 117, 125, 0.3);
+}
+
+.campaign-actions-row .btn-secondary:hover {
+    background: linear-gradient(135deg, #5a6268, #495057);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.4);
+}
+
+/* Campaign Summary Cards */
+.campaign-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: rgba(0, 214, 122, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 214, 122, 0.2);
+}
+
+.summary-card {
+    text-align: center;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+}
+
+.summary-card:hover {
+    background: rgba(0, 214, 122, 0.1);
+    border-color: rgba(0, 214, 122, 0.3);
+    transform: translateY(-2px);
+}
+
+.summary-card-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #00d67a;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.summary-card-label {
+    font-size: 11px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+/* Campaign Progress Indicators */
+.campaign-progress {
+    margin: 8px 0;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    border-left: 3px solid #00d67a;
+}
+
+.progress-label {
+    font-size: 11px;
+    color: #bbb;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00d67a, #00b366);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Campaign Status Enhancements */
+.campaign-card[data-status="active"] .campaign-status {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    animation: pulse 2s infinite;
+}
+
+.campaign-card[data-status="scheduled"] .campaign-status {
+    background: linear-gradient(135deg, #ffc107, #fd7e14);
+}
+
+.campaign-card[data-status="paused"] .campaign-status {
+    background: linear-gradient(135deg, #6c757d, #495057);
+}
+
+.campaign-card[data-status="completed"] .campaign-status {
+    background: linear-gradient(135deg, #17a2b8, #20c997);
+}
+
+.campaign-card[data-status="cancelled"] .campaign-status {
+    background: linear-gradient(135deg, #dc3545, #e74c3c);
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+/* Enhanced Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.campaign-card.new {
+    animation: slideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.campaigns-container {
+    animation: fadeInUp 0.3s ease-out;
+}
+
+/* Loading States */
+.campaigns-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    color: #999;
+}
+
+.campaigns-loading::before {
+    content: "⏳";
+    margin-right: 8px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Error States */
+.campaigns-error {
+    padding: 20px;
+    text-align: center;
+    color: #dc3545;
+    background: rgba(220, 53, 69, 0.1);
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    border-radius: 8px;
+    margin: 16px 0;
+}
+
+.campaigns-error::before {
+    content: "⚠️";
+    display: block;
+    font-size: 24px;
+    margin-bottom: 8px;
+}

@@ -1,0 +1,175 @@
+/* Admin Dashboard Styling - Matches Extension Design */
+
+.admin-only {
+    background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.profile-section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    border: 1px solid #444;
+    color: #fff !important;
+    transition: all 0.2s ease;
+}
+
+.profile-section-header:hover {
+    background: linear-gradient(135deg, #333 0%, #2a2a2a 100%);
+    border-color: #555;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.profile-section-content {
+    transition: all 0.3s ease;
+    overflow: hidden;
+    background: #1a1a1a;
+    color: #fff;
+}
+
+.profile-section-content.collapsed {
+    max-height: 0;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+}
+
+.toggle-icon {
+    font-size: 12px;
+    color: #ccc;
+    transition: transform 0.2s ease;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.form-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background: #2a2a2a;
+    color: #fff;
+    font-size: 14px;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.form-help {
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+    display: block;
+}
+
+.invitations-container {
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 8px;
+    background: #2a2a2a;
+    color: #fff;
+}
+
+.invitations-container:empty::after {
+    content: "No pending invitations";
+    color: #999;
+    font-style: italic;
+    display: block;
+    text-align: center;
+    padding: 8px;
+}
+
+/* Artist sections collapsible styling */
+.admin-artist-toggle {
+    background: #2a2a2a !important;
+    border: 1px solid #444 !important;
+    color: #fff !important;
+}
+
+.admin-artist-toggle:hover {
+    background: #333 !important;
+    border-color: #555 !important;
+}
+
+.admin-collapsed {
+    display: none !important;
+}
+
+/* Hide duplicate admin dashboard containers but keep main ones */
+.admin-dashboard-container:not(#admin-dashboard-section) {
+    display: none !important;
+}
+
+/* Ensure admin sections are visible */
+#admin-dashboard-section,
+#admin-invitation-section {
+    display: block !important;
+}
+
+/* Hide original artist profile sections when admin dashboard is active */
+.admin-dashboard ~ .profile-info,
+.admin-dashboard ~ .profile-stats,
+.admin-dashboard ~ .enhanced-profile,
+.admin-dashboard ~ .artist-biography,
+.admin-dashboard ~ .artist-invitation {
+    display: none !important;
+}
+
+/* Button styling for admin section */
+.admin-only .btn {
+    background: linear-gradient(135deg, #00d67a 0%, #00b866 100%);
+    color: white !important;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 214, 122, 0.3);
+}
+
+.admin-only .btn:hover {
+    background: linear-gradient(135deg, #00b866 0%, #009954 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 214, 122, 0.4);
+}
+
+.admin-only .btn-primary {
+    background: linear-gradient(135deg, #00d67a 0%, #00b866 100%);
+}
+
+.admin-only .btn-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+    box-shadow: 0 2px 4px rgba(108, 117, 125, 0.3);
+}
+
+.admin-only .btn-secondary:hover {
+    background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.4);
+}

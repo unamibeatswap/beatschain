@@ -1,0 +1,23 @@
+{
+  "name": "beatschain",
+  "version": "1.0.0",
+  "description": "Decentralized marketplace for music producers and artists to buy, sell, and trade beats as NFTs",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/app",
+    "packages/hardhat",
+    "packages/mcp-server",
+    "packages/shared/*"
+  ],
+  "scripts": {
+    "dev": "yarn workspaces -pt run dev",
+    "build": "yarn workspaces -pt run build",
+    "test": "yarn workspaces -pt run test"
+  },
+  "dependencies": {
+    "css-select": "^5.2.2",
+    "css-what": "^6.2.2",
+    "pino-pretty": "^13.0.0"
+  }
+}

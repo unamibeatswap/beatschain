@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Input Priority Test</title>
+</head>
+<body>
+    <h1>🧪 User Input Priority Test</h1>
+    
+    <div>
+        <h3>Test Scenario:</h3>
+        <p>1. AI detects genre as "Electronic"</p>
+        <p>2. User selects "Hip-Hop" from dropdown</p>
+        <p>3. License should use "Hip-Hop" (user choice) not "Electronic" (AI suggestion)</p>
+    </div>
+    
+    <div>
+        <label>Genre Select:</label>
+        <select id="genre-select">
+            <option value="">Select Genre</option>
+            <option value="Hip-Hop">Hip-Hop</option>
+            <option value="Electronic">Electronic</option>
+        </select>
+    </div>
+    
+    <button onclick="testUserInputPriority()">Test User Input Priority</button>
+    
+    <div id="results"></div>
+    
+    <script src="lib/user-input-manager.js"></script>
+    <script>
+        function testUserInputPriority() {
+            const userInputManager = new UserInputManager();
+            
+            // Simulate AI detection
+            const aiMetadata = {
+                title: 'Test Beat',
+                suggestedGenre: 'Electronic', // AI detected
+                artist: 'Test Artist'
+            };
+            
+            // Simulate user selection
+            const genreSelect = document.getElementById('genre-select');
+            genreSelect.value = 'Hip-Hop'; // User selected
+            
+            // Get user inputs (simulating getArtistInputs)
+            const userInputs = {
+                genre: genreSelect.value && genreSelect.value.trim() ? genreSelect.value : aiMetadata.suggestedGenre
+            };
+            
+            // Test the merge function
+            const finalMetadata = userInputManager.mergeWithUserInputs(aiMetadata, userInputs);
+            
+            // Display results
+            const results = document.getElementById('results');
+            results.innerHTML = `
+                <h3>Results:</h3>
+                <p><strong>AI Detected:</strong> ${aiMetadata.suggestedGenre}</p>
+                <p><strong>User Selected:</strong> ${userInputs.genre}</p>
+                <p><strong>Final Genre:</strong> ${finalMetadata.genre}</p>
+                <p><strong>Test Result:</strong> ${finalMetadata.genre === 'Hip-Hop' ? '✅ PASS - User input takes priority' : '❌ FAIL - AI override detected'}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

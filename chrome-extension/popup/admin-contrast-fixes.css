@@ -1,0 +1,163 @@
+/* Admin Dashboard Contrast Fixes - Additional Overrides */
+
+/* Hide admin-only elements by default to avoid flashing privileged UI before role is resolved.
+   JavaScript will reveal admin elements when a verified admin role is detected. */
+.admin-only { display: none !important; }
+
+/* Improve keyboard focus visibility for admin tabs */
+.admin-tab:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.04) !important;
+}
+
+
+/* Ensure all admin text is white with proper contrast */
+.admin-dashboard *,
+.admin-only *,
+.samro-enhanced-section *,
+.admin-content * {
+    color: #fff !important;
+}
+
+/* Override any white backgrounds in admin sections */
+.admin-dashboard .form-input,
+.admin-only .form-input,
+.samro-enhanced-section .form-input {
+    background: linear-gradient(135deg, #333 0%, #2a2a2a 100%) !important;
+    color: #fff !important;
+    border: 1px solid #555 !important;
+}
+
+/* Fix any remaining white/light backgrounds */
+.admin-dashboard .template-card,
+.admin-dashboard .sponsor-preview-box,
+.admin-dashboard .samro-content,
+.admin-dashboard .tab-panel {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%) !important;
+    color: #fff !important;
+}
+
+/* Ensure proper contrast for all admin buttons */
+.admin-dashboard .btn,
+.admin-only .btn {
+    color: #fff !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Fix toggle switches for better visibility */
+.admin-dashboard .toggle-switch,
+.admin-only .toggle-switch {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid #444 !important;
+}
+
+/* Ensure form labels are visible */
+.admin-dashboard label,
+.admin-only label,
+.samro-enhanced-section label {
+    color: #ccc !important;
+    font-weight: 500 !important;
+}
+
+/* Fix any remaining contrast issues with small text */
+.admin-dashboard small,
+.admin-dashboard .field-help,
+.admin-only small,
+.admin-only .field-help {
+    color: #999 !important;
+}
+
+/* Ensure proper visibility for disabled elements */
+.admin-dashboard .btn:disabled,
+.admin-only .btn:disabled {
+    background: #555 !important;
+    color: #999 !important;
+    opacity: 0.6 !important;
+}
+
+/* Fix select dropdowns */
+.admin-dashboard select,
+.admin-only select {
+    background: linear-gradient(135deg, #333 0%, #2a2a2a 100%) !important;
+    color: #fff !important;
+    border: 1px solid #555 !important;
+}
+
+/* Fix textarea elements */
+.admin-dashboard textarea,
+.admin-only textarea {
+    background: linear-gradient(135deg, #333 0%, #2a2a2a 100%) !important;
+    color: #fff !important;
+    border: 1px solid #555 !important;
+}
+
+/* Ensure proper contrast for status indicators */
+.admin-dashboard .status-badge,
+.admin-dashboard .campaign-status,
+.admin-dashboard .user-type {
+    background: rgba(0, 214, 122, 0.2) !important;
+    color: #00d67a !important;
+    border: 1px solid #00d67a !important;
+}
+
+/* Fix any remaining white text on white background issues */
+.admin-dashboard .metric-label,
+.admin-dashboard .stat-label,
+.admin-dashboard .chart-label {
+    color: #ccc !important;
+}
+
+/* Ensure proper visibility for icons */
+.admin-dashboard .collapse-btn,
+.admin-dashboard .btn-icon {
+    color: #ccc !important;
+}
+
+.admin-dashboard .collapse-btn:hover,
+.admin-dashboard .btn-icon:hover {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Additional black background overrides */
+.admin-dashboard .tab-panel,
+.admin-dashboard .samro-content,
+.admin-dashboard .template-card,
+.admin-dashboard .sponsor-preview-box,
+.admin-dashboard .stat-card,
+.admin-dashboard .summary-card,
+.admin-dashboard .metric-card,
+.admin-dashboard .chart-container,
+.admin-dashboard .user-distribution,
+.admin-dashboard .invitations-container,
+.admin-dashboard .user-list,
+.admin-dashboard .logs-container,
+.admin-dashboard .health-indicators {
+    background: #000000 !important;
+    color: #fff !important;
+}
+
+/* Ensure all admin sections have black background */
+.admin-dashboard .samro-enhanced-section,
+.admin-dashboard .artist-summary-section,
+.admin-dashboard .campaigns-container,
+.admin-dashboard .analytics-panel,
+.admin-dashboard .users-panel,
+.admin-dashboard .system-panel,
+.admin-dashboard .revenue-panel {
+    background: #000000 !important;
+    color: #fff !important;
+}
+
+/* Override any remaining white backgrounds */
+.admin-dashboard div,
+.admin-dashboard section,
+.admin-dashboard article,
+.admin-dashboard aside {
+    background: transparent !important;
+}
+
+.admin-dashboard .form-group,
+.admin-dashboard .form-row {
+    background: transparent !important;
+}

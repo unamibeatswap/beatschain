@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Management Test</title>
+    <link rel="stylesheet" href="popup/campaign-management-styles.css">
+    <style>
+        body {
+            background: #1a1a1a;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #444;
+            border-radius: 8px;
+        }
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Campaign Management System Test</h1>
+        
+        <div class="test-section">
+            <h2>Campaign Manager Initialization</h2>
+            <button id="init-campaign-manager" class="btn btn-primary">Initialize Campaign Manager</button>
+            <div id="init-status"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Create Test Campaign</h2>
+            <button id="create-test-campaign" class="btn btn-primary">Create Test Campaign</button>
+            <div id="create-status"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Campaign List</h2>
+            <button id="refresh-campaigns" class="btn btn-secondary">Refresh Campaign List</button>
+            <div id="campaigns-display"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Campaign Form Test</h2>
+            <button id="show-form" class="btn btn-primary">Show Campaign Form</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>Storage Test</h2>
+            <button id="test-storage" class="btn btn-secondary">Test Chrome Storage</button>
+            <div id="storage-status"></div>
+        </div>
+    </div>
+
+    <!-- Production Storage Integration -->
+    <script src="lib/ipfs-asset-manager.js"></script>
+    <script>
+        // Production-grade storage using IPFS + Chrome Storage
+        class ProductionStorage {
+            constructor() {
+                this.ipfsManager = new IPFSAssetManager();
+                this.useIPFS = true;
+            }
+            
+            async get(keys) {
+                try {
+                    if (this.useIPFS) {
+                        const manifestResult = await chrome.storage.local.get(['campaign_manifest_hash']);
+                        if (manifestResult.campaign_manifest_hash) {
+                            const manifestUrl = `https://gateway.pinata.cloud/ipfs/${manifestResult.campaign_manifest_hash}`;
+                            const response = await fetch(manifestUrl);
+                            const data = await response.json();
+                            return Array.isArray(keys) ? 
+                                keys.reduce((acc, key) => ({ ...acc, [key]: data[key] }), {}) : 
+                                { [keys]: data[keys] };
+                        }
+                    }
+                    return chrome.storage.local.get(keys);
+                } catch (error) {
+                    return chrome.storage.local.get(keys);
+                }
+            }
+            
+            async set(data) {
+                await chrome.storage.local.set(data);
+                if (this.useIPFS && data.campaigns) {
+                    try {
+                        const manifest = { campaigns: data.campaigns, updated: Date.now() };
+                        const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+                        const hash = await this.ipfsManager.uploadAsset(blob, { type: 'campaign_manifest' });
+                        await chrome.storage.local.set({ campaign_manifest_hash: hash });
+                    } catch (error) {
+                        console.warn('IPFS backup failed, using local storage only');
+                    }
+                }
+            }
+            
+            async remove(keys) {
+                return chrome.storage.local.remove(keys);
+            }
+        }
+        
+        if (!window.chrome?.storage) {
+            window.chrome = { storage: { local: new ProductionStorage() } };
+        } else {
+            const originalStorage = chrome.storage.local;
+            chrome.storage.local = new ProductionStorage();
+            chrome.storage.local.originalStorage = originalStorage;
+        }
+    </script>
+
+    <!-- Load Campaign Manager -->
+    <script src="lib/campaign-manager.js"></script>
+    
+    <script>
+        let campaignManager;
+        
+        // Mock sponsor templates for testing
+        const mockSponsorTemplates = {
+            default: {
+                name: 'BeatsChain',
+                message: 'Powered by BeatsChain - Professional Music Tools',
+                logo: null,
+                website: 'https://beatschain.com'
+            },
+            radiomonitor: {
+                name: 'Radiomonitor South Africa',
+                message: 'Professional music monitoring and analytics',
+                logo: null,
+                website: 'https://radiomonitor.co.za'
+            }
+        };
+        
+        // Initialize Campaign Manager
+        document.getElementById('init-campaign-manager').addEventListener('click', async () => {
+            try {
+                campaignManager = new CampaignManager();
+                await campaignManager.initialize();
+                document.getElementById('init-status').innerHTML = '<span style="color: #4CAF50;">✅ Campaign Manager initialized successfully</span>';
+            } catch (error) {
+                document.getElementById('init-status').innerHTML = `<span style="color: #f44336;">❌ Error: ${error.message}</span>`;
+            }
+        });
+        
+        // Create Test Campaign
+        document.getElementById('create-test-campaign').addEventListener('click', async () => {
+            if (!campaignManager) {
+                document.getElementById('create-status').innerHTML = '<span style="color: #f44336;">❌ Initialize Campaign Manager first</span>';
+                return;
+            }
+            
+            try {
+                const testCampaign = {
+                    name: 'Test Campaign ' + Date.now(),
+                    sponsorId: 'default',
+                    placement: 'after_isrc',
+                    startDate: new Date().toISOString(),
+                    endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+                    budget: 100
+                };
+                
+                const campaign = await campaignManager.createCampaign(testCampaign);
+                document.getElementById('create-status').innerHTML = `<span style="color: #4CAF50;">✅ Campaign created: ${campaign.name}</span>`;
+            } catch (error) {
+                document.getElementById('create-status').innerHTML = `<span style="color: #f44336;">❌ Error: ${error.message}</span>`;
+            }
+        });
+        
+        // Refresh Campaign List
+        document.getElementById('refresh-campaigns').addEventListener('click', () => {
+            if (!campaignManager) {
+                document.getElementById('campaigns-display').innerHTML = '<span style="color: #f44336;">❌ Initialize Campaign Manager first</span>';
+                return;
+            }
+            
+            const campaigns = campaignManager.getAllCampaigns();
+            if (campaigns.length === 0) {
+                document.getElementById('campaigns-display').innerHTML = '<div class="no-campaigns">No campaigns created yet</div>';
+            } else {
+                const campaignsHTML = campaigns.map(campaign => campaignManager.generateCampaignHTML(campaign)).join('');
+                document.getElementById('campaigns-display').innerHTML = campaignsHTML;
+            }
+        });
+        
+        // Show Campaign Form
+        document.getElementById('show-form').addEventListener('click', () => {
+            if (!campaignManager) {
+                alert('Initialize Campaign Manager first');
+                return;
+            }
+            
+            const formHTML = campaignManager.generateCampaignFormHTML(null, mockSponsorTemplates);
+            const modalContainer = document.createElement('div');
+            modalContainer.innerHTML = formHTML;
+            document.body.appendChild(modalContainer);
+            
+            // Add close functionality
+            const closeBtn = modalContainer.querySelector('.close-form-btn');
+            const cancelBtn = modalContainer.querySelector('.cancel-campaign-btn');
+            
+            const closeModal = () => document.body.removeChild(modalContainer);
+            
+            closeBtn.addEventListener('click', closeModal);
+            cancelBtn.addEventListener('click', closeModal);
+            
+            // Form submission
+            modalContainer.querySelector('#campaign-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const form = e.target;
+                
+                try {
+                    await campaignManager.createCampaign({
+                        name: form.querySelector('#campaign-name').value,
+                        sponsorId: form.querySelector('#campaign-sponsor').value,
+                        placement: form.querySelector('#campaign-placement').value,
+                        startDate: form.querySelector('#campaign-start-date').value,
+                        endDate: form.querySelector('#campaign-end-date').value,
+                        budget: form.querySelector('#campaign-budget').value
+                    });
+                    alert('Campaign created successfully!');
+                    closeModal();
+                } catch (error) {
+                    alert('Error: ' + error.message);
+                }
+            });
+        });
+        
+        // Test Storage
+        document.getElementById('test-storage').addEventListener('click', async () => {
+            try {
+                await chrome.storage.local.set({ test_key: 'test_value' });
+                const result = await chrome.storage.local.get(['test_key']);
+                
+                document.getElementById('storage-status').innerHTML = 
+                    result.test_key === 'test_value' ? 
+                    '<span style="color: #4CAF50;">✅ Production Storage working</span>' :
+                    '<span style="color: #f44336;">❌ Storage mismatch</span>';
+            } catch (error) {
+                document.getElementById('storage-status').innerHTML = 
+                    `<span style="color: #f44336;">❌ Error: ${error.message}</span>`;
+            }
+        });
+    </script>
+</body>
+</html>tn = modalContainer.querySelector('.cancel-campaign-btn');
+            
+            const closeModal = () => {
+                document.body.removeChild(modalContainer);
+            };
+            
+            closeBtn.addEventListener('click', closeModal);
+            cancelBtn.addEventListener('click', closeModal);
+            
+            // Add form submission
+            const form = modalContainer.querySelector('#campaign-form');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const campaignData = {
+                    name: form.querySelector('#campaign-name').value,
+                    sponsorId: form.querySelector('#campaign-sponsor').value,
+                    placement: form.querySelector('#campaign-placement').value,
+                    startDate: form.querySelector('#campaign-start-date').value,
+                    endDate: form.querySelector('#campaign-end-date').value,
+                    budget: form.querySelector('#campaign-budget').value
+                };
+                
+                try {
+                    await campaignManager.createCampaign(campaignData);
+                    alert('Campaign created successfully!');
+                    closeModal();
+                } catch (error) {
+                    alert('Error creating campaign: ' + error.message);
+                }
+            });
+        });
+        
+        // Test Storage
+        document.getElementById('test-storage').addEventListener('click', async () => {
+            try {
+                await chrome.storage.local.set({ test_key: 'test_value' });
+                const result = await chrome.storage.local.get(['test_key']);
+                
+                if (result.test_key === 'test_value') {
+                    document.getElementById('storage-status').innerHTML = '<span style="color: #4CAF50;">✅ Production Storage working correctly</span>';
+                } else {
+                    document.getElementById('storage-status').innerHTML = '<span style="color: #f44336;">❌ Storage read/write mismatch</span>';
+                }
+            } catch (error) {
+                document.getElementById('storage-status').innerHTML = `<span style="color: #f44336;">❌ Storage Error: ${error.message}</span>`;
+            }
+        });
+    </script>
+</body>
+</html>tn = modalContainer.querySelector('.cancel-campaign-btn');
+            
+            const closeModal = () => {
+                document.body.removeChild(modalContainer);
+            };
+            
+            closeBtn.addEventListener('click', closeModal);
+            cancelBtn.addEventListener('click', closeModal);
+            
+            // Add form submission
+            const form = modalContainer.querySelector('#campaign-form');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const campaignData = {
+                    name: form.querySelector('#campaign-name').value,
+                    sponsorId: form.querySelector('#campaign-sponsor').value,
+                    placement: form.querySelector('#campaign-placement').value,
+                    startDate: form.querySelector('#campaign-start-date').value,
+                    endDate: form.querySelector('#campaign-end-date').value,
+                    budget: form.querySelector('#campaign-budget').value
+                };
+                
+                try {
+                    await campaignManager.createCampaign(campaignData);
+                    alert('Campaign created successfully!');
+                    closeModal();
+                } catch (error) {
+                    alert('Error creating campaign: ' + error.message);
+                }
+            });
+        });
+        
+        // Test Storage
+        document.getElementById('test-storage').addEventListener('click', async () => {
+            try {
+                await chrome.storage.local.set({ test_key: 'test_value' });
+                const result = await chrome.storage.local.get(['test_key']);
+                
+                if (result.test_key === 'test_value') {
+                    document.getElementById('storage-status').innerHTML = '<span style="color: #4CAF50;">✅ Production Storage working correctly</span>';
+                } else {
+                    document.getElementById('storage-status').innerHTML = '<span style="color: #f44336;">❌ Storage read/write mismatch</span>';
+                }
+            } catch (error) {
+                document.getElementById('storage-status').innerHTML = `<span style="color: #f44336;">❌ Storage Error: ${error.message}</span>`;
+            }
+        });
+    </script>
+</body>
+</html>             try {
+                    await campaignManager.createCampaign(campaignData);
+                    alert('Campaign created successfully!');
+                    closeModal();
+                } catch (error) {
+                    alert('Error creating campaign: ' + error.message);
+                }
+            });
+        });
+        
+        // Test Storage
+        document.getElementById('test-storage').addEventListener('click', async () => {
+            try {
+                // Test write
+                await chrome.storage.local.set({ test_key: 'test_value' });
+                
+                // Test read
+                const result = await chrome.storage.local.get(['test_key']);
+                
+                if (result.test_key === 'test_value') {
+                    document.getElementById('storage-status').innerHTML = '<span style="color: #4CAF50;">✅ Chrome Storage working correctly</span>';
+                } else {
+                    document.getElementById('storage-status').innerHTML = '<span style="color: #f44336;">❌ Chrome Storage read/write mismatch</span>';
+                }
+            } catch (error) {
+                document.getElementById('storage-status').innerHTML = `<span style="color: #f44336;">❌ Storage Error: ${error.message}</span>`;
+            }
+        });
+    </script>
+</body>
+</html>onsorId: form.querySelector('#campaign-sponsor').value,
+                    placement: form.querySelector('#campaign-placement').value,
+                    startDate: form.querySelector('#campaign-start-date').value,
+                    endDate: form.querySelector('#campaign-end-date').value,
+                    budget: form.querySelector('#campaign-budget').value
+                };
+                
+                try {
+                    await campaignManager.createCampaign(campaignData);
+                    alert('Campaign created successfully!');
+                    closeModal();
+                } catch (error) {
+                    alert('Error creating campaign: ' + error.message);
+                }
+            });
+        });
+        
+        // Test Storage
+        document.getElementById('test-storage').addEventListener('click', async () => {
+            try {
+                // Test write
+                await chrome.storage.local.set({ test_key: 'test_value' });
+                
+                // Test read
+                const result = await chrome.storage.local.get(['test_key']);
+                
+                if (result.test_key === 'test_value') {
+                    document.getElementById('storage-status').innerHTML = '<span style="color: #4CAF50;">✅ Chrome Storage working correctly</span>';
+                } else {
+                    document.getElementById('storage-status').innerHTML = '<span style="color: #f44336;">❌ Chrome Storage read/write mismatch</span>';
+                }
+            } catch (error) {
+                document.getElementById('storage-status').innerHTML = `<span style="color: #f44336;">❌ Storage Error: ${error.message}</span>`;
+            }
+        });
+    </script>
+</body>
+</html>

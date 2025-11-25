@@ -1,0 +1,98 @@
+{
+  "version": "2.1",
+  "updated": "2025-10-29T10:00:00.000Z",
+  "environment": "production",
+  "sponsors": [
+    {
+      "id": "music_legal_services_prod",
+      "name": "Professional Music Legal Services",
+      "message": "Get professional legal review for your music contracts, ISRC registration, and licensing agreements",
+      "placement": "after_isrc_generation",
+      "active": true,
+      "priority": 10,
+      "tier": "premium",
+      "website": "https://musiclegal.pro",
+      "cta": "Get Legal Review",
+      "revenue_share": 0.15,
+      "assets": {
+        "logo": "QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG",
+        "banner": "QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG"
+      }
+    },
+    {
+      "id": "radio_analytics_prod",
+      "name": "Airplay Analytics Pro",
+      "message": "Track your radio airplay, audience engagement, and performance metrics across all stations",
+      "placement": "radio_validation",
+      "active": true,
+      "priority": 8,
+      "tier": "enterprise",
+      "website": "https://airplayanalytics.com",
+      "cta": "View Analytics",
+      "revenue_share": 0.12,
+      "assets": {
+        "logo": "QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG",
+        "banner": "QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG"
+      }
+    },
+    {
+      "id": "music_promotion_prod",
+      "name": "Music Promotion Network",
+      "message": "Get your music heard by industry professionals, radio programmers, and playlist curators",
+      "placement": "before_radio_package",
+      "active": true,
+      "priority": 6,
+      "tier": "basic",
+      "website": "https://musicpromotion.network",
+      "cta": "Promote Music",
+      "revenue_share": 0.10,
+      "assets": {
+        "logo": "QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG",
+        "banner": "QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG"
+      }
+    },
+    {
+      "id": "distribution_services_prod",
+      "name": "Global Music Distribution",
+      "message": "Distribute your music to Spotify, Apple Music, Amazon Music, and 150+ digital platforms worldwide",
+      "placement": "post_radio_package",
+      "active": true,
+      "priority": 7,
+      "tier": "premium",
+      "website": "https://globalmusicdist.com",
+      "cta": "Start Distribution",
+      "revenue_share": 0.18,
+      "assets": {
+        "logo": "QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG",
+        "banner": "QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG"
+      }
+    },
+    {
+      "id": "nft_marketplace_prod",
+      "name": "BeatsChain NFT Marketplace",
+      "message": "List your music NFTs on our exclusive marketplace for collectors and music enthusiasts",
+      "placement": "after_nft_mint",
+      "active": true,
+      "priority": 9,
+      "tier": "premium",
+      "website": "https://marketplace.beatschain.com",
+      "cta": "List NFT",
+      "revenue_share": 0.08,
+      "assets": {
+        "logo": "QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG",
+        "banner": "QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG"
+      }
+    }
+  ],
+  "settings": {
+    "max_sponsors_per_placement": 2,
+    "rotation_enabled": true,
+    "analytics_enabled": true,
+    "fallback_to_development": false
+  },
+  "analytics": {
+    "tracking_enabled": true,
+    "events": ["impression", "click", "interaction", "conversion"],
+    "retention_days": 30
+  }
+}

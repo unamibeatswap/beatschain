@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeatsChain Minter</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="enhancement-styles.css">
+    <link rel="stylesheet" href="google-drive-sponsor-styles.css">
+    <link rel="stylesheet" href="native-sponsor-styles.css">
+    <link rel="stylesheet" href="admin-styles.css">
+    <link rel="stylesheet" href="admin-dashboard-styles.css">
+    <link rel="stylesheet" href="enhanced-campaign-styles.css">
+    <link rel="stylesheet" href="admin-contrast-fixes.css">
+    <link rel="stylesheet" href="campaign-management-styles.css">
+    <link rel="stylesheet" href="isrc-minting-styles.css">
+    <link rel="stylesheet" href="asset-hub-styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-brand">
+                <img src="../assets/icons/icon32.png" alt="BeatsChain Logo" class="brand-logo">
+                <div class="brand-text">
+                    <h1>BeatsChain</h1>
+                </div>
+            </div>
+            
+            <!-- Header Authentication Status -->
+            <div class="header-auth" id="header-auth" style="display: none;">
+                <div class="auth-status">
+                    <span class="user-avatar" id="header-user-avatar">👤</span>
+                    <span class="user-name" id="header-user-name">User</span>
+                    <span class="user-role-badge" id="header-user-role" style="display: none;"></span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <button class="menu-toggle" id="menu-toggle">☰ Menu</button>
+                <div class="nav-dropdown" id="nav-dropdown">
+                    <button class="nav-item active" data-section="mint">Mint NFT</button>
+                    <button class="nav-item" data-section="hub">Asset Hub</button>
+                    <button class="nav-item" data-section="profile">Profile</button>
+                    <button class="nav-item" data-section="history">History</button>
+                    <button class="nav-item" data-section="share">Share</button>
+                    <button class="nav-item" data-section="radio">Radio</button>
+                    <button class="nav-item" data-section="insights">Smart Trees</button>
+                    <button class="nav-item auth-action" id="header-logout" style="display: none;">Logout</button>
+                </div>
+            </nav>
+        </header>
+
+        <main class="main">
+            <!-- Profile Section -->
+            <section id="profile-section" class="section">
+                <h2>Artist Profile</h2>
+                <div class="profile-content">
+                    <div class="profile-info">
+                        <div class="profile-avatar">🎤</div>
+                        <div class="profile-details">
+                            <h3 id="profile-name">Artist Name</h3>
+                            <p id="profile-email">artist@example.com</p>
+                            <p id="profile-wallet">Wallet: <span id="profile-wallet-address">Not connected</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="total-nfts">0</span>
+                            <span class="stat-label">NFTs Minted</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="total-earnings">0</span>
+                            <span class="stat-label">MATIC Earned</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Enhanced Profile Information -->
+                    <div class="enhanced-profile">
+                        <div class="profile-header">
+                            <h4>📝 Profile Information</h4>
+                            <button class="collapse-btn" id="profile-info-toggle" type="button">▶</button>
+                        </div>
+                        <div class="profile-info-content collapsed" id="profile-info-content">
+                        <div class="profile-form">
+                            <div class="form-grid-two-col">
+                                <div class="form-row">
+                                    <label for="profile-legal-name">Legal Name:</label>
+                                    <input type="text" id="profile-legal-name" class="form-input" placeholder="Full legal name for contracts and legal documents" maxlength="100">
+                                    <small class="field-help">Used in contracts, licensing agreements, and legal documentation</small>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <label for="profile-display-name">Display Name:</label>
+                                    <input type="text" id="profile-display-name" class="form-input" placeholder="Artist/stage name for public display" maxlength="100">
+                                    <small class="field-help">Used in NFT metadata, public profiles, and branding</small>
+                                </div>
+                                
+                                <div class="form-row form-row-full">
+                                    <label for="profile-role">Primary Role:</label>
+                                    <select id="profile-role" class="form-input">
+                                        <option value="">Select your primary role</option>
+                                        <option value="artist">Artist (Vocalist/Performer)</option>
+                                        <option value="producer">Producer (Beat Maker/Instrumentalist)</option>
+                                        <option value="both">Both Artist & Producer</option>
+                                    </select>
+                                    <small class="field-help">Affects UI features and metadata generation</small>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Artist Biography Form -->
+                    <div class="artist-biography">
+                        <div class="bio-header">
+                            <h4>📝 Artist Biography & Press Kit</h4>
+                            <button class="collapse-btn" id="bio-toggle" type="button">▶</button>
+                        </div>
+                        <div class="bio-content collapsed" id="bio-content">
+                        <div class="bio-form">
+                            <div class="form-row">
+                                <label for="profile-artist-bio">Biography:</label>
+                                <textarea id="profile-artist-bio" class="form-input" placeholder="Tell your story, background, and musical journey..." rows="4" maxlength="1000"></textarea>
+                            </div>
+                            
+                            <div class="form-row">
+                                <label for="profile-influences">Musical Influences:</label>
+                                <input type="text" id="profile-influences" class="form-input" placeholder="Artists, genres, or styles that inspire you" maxlength="200">
+                            </div>
+                            
+                            <div class="form-row">
+                                <label for="profile-website">Website:</label>
+                                <input type="url" id="profile-website" class="form-input" placeholder="https://yourwebsite.com">
+                            </div>
+                            
+                            <div class="form-row">
+                                <label for="profile-email-contact">Email:</label>
+                                <input type="email" id="profile-email-contact" class="form-input" placeholder="contact@yourname.com">
+                            </div>
+                            
+                            <div class="form-row">
+                                <label for="profile-phone">Phone:</label>
+                                <input type="tel" id="profile-phone" class="form-input" placeholder="+1 (555) 123-4567">
+                            </div>
+                            
+                            <div class="form-row">
+                                <label for="profile-instagram">Instagram:</label>
+                                <input type="url" id="profile-instagram" class="form-input" placeholder="https://instagram.com/username">
+                            </div>
+                            
+                            <div class="form-row">
+                                <label for="profile-twitter">Twitter:</label>
+                                <input type="url" id="profile-twitter" class="form-input" placeholder="https://twitter.com/username">
+                            </div>
+                            
+                            <div class="form-row">
+                                <label for="profile-facebook">Facebook:</label>
+                                <input type="url" id="profile-facebook" class="form-input" placeholder="https://facebook.com/username">
+                            </div>
+                            
+                            <h5 style="color: white; margin: 20px 0 10px 0; font-size: 14px;">🎵 Music Platforms</h5>
+                            
+                            <div class="form-row">
+                                <label for="profile-spotify">Spotify:</label>
+                                <input type="url" id="profile-spotify" class="form-input" placeholder="https://open.spotify.com/artist/...">
+                            </div>
+                            
+                            <div class="form-row">
+                                <label for="profile-soundcloud">SoundCloud:</label>
+                                <input type="url" id="profile-soundcloud" class="form-input" placeholder="https://soundcloud.com/username">
+                            </div>
+                            
+                            <div class="form-row">
+                                <label for="profile-youtube">YouTube:</label>
+                                <input type="url" id="profile-youtube" class="form-input" placeholder="https://youtube.com/@username">
+                            </div>
+                            
+                            <div class="form-row">
+                                <label for="profile-bandcamp">Bandcamp:</label>
+                                <input type="url" id="profile-bandcamp" class="form-input" placeholder="https://username.bandcamp.com">
+                            </div>
+                            
+                            <div class="form-row">
+                                <label for="profile-tiktok">TikTok:</label>
+                                <input type="url" id="profile-tiktok" class="form-input" placeholder="https://tiktok.com/@username">
+                            </div>
+                            
+                            <div class="form-row">
+                                <label for="profile-apple-music">Apple Music:</label>
+                                <input type="url" id="profile-apple-music" class="form-input" placeholder="https://music.apple.com/artist/...">
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Artist Invitation Feature -->
+                    <div class="artist-invitation">
+                        <div class="invitation-header">
+                            <h4>🎵 Invite Other Artists</h4>
+                            <button class="collapse-btn" id="invitation-toggle" type="button">▶</button>
+                        </div>
+                        <div class="invitation-content collapsed" id="invitation-content">
+                            <p>Help grow the BeatsChain community by inviting fellow artists to join the platform.</p>
+                            <div class="invitation-form">
+                                <div class="form-row">
+                                    <label for="invite-email">Artist Email:</label>
+                                    <input type="email" id="invite-email" class="form-input" placeholder="artist@example.com">
+                                </div>
+                                <div class="form-row">
+                                    <label for="invite-message">Personal Message (optional):</label>
+                                    <textarea id="invite-message" class="form-input" rows="3" placeholder="Hey! I've been using BeatsChain to mint my music as NFTs and prepare radio submission packages. You should check it out!"></textarea>
+                                </div>
+                                <button id="send-invitation" class="btn btn-primary">📧 Send Invitation</button>
+                            </div>
+                            <div class="invitation-info">
+                                <small>✅ Invitations include extension download link and setup guide</small>
+                                <small>✅ Spam prevention: 30-second cooldown between invitations</small>
+                                <small>✅ Personalized with your name (if signed in)</small>
+                                <div id="invitation-stats" style="margin-top: 8px; padding: 8px; background: #f8f9fa; border-radius: 4px; display: none;">
+                                    <small style="color: #6c757d;">Total invitations sent: <span id="invite-count">0</span></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <button id="save-profile" class="btn btn-primary">💾 Save Profile</button>
+                        <button id="export-wallet" class="btn btn-secondary">📤 Export Wallet</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- History Section -->
+            <section id="history-section" class="section">
+                <h2>Transaction History</h2>
+                <div class="history-content">
+                    <div class="history-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="minted">Minted</button>
+                        <button class="filter-btn" data-filter="sold">Sold</button>
+                    </div>
+                    
+                    <div id="history-list" class="history-list">
+                        <div class="empty-state">
+                            <p>📜 No transactions yet</p>
+                            <small>Your minting history will appear here</small>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Upload Section -->
+            <section id="upload-section" class="section active">
+                <h2>Upload Beat</h2>
+                
+                <!-- Google Sign-in -->
+                <div class="auth-section">
+                    <div class="auth-context">
+                        <div class="auth-header">
+                            <h4>🔐 Authentication Required for NFT Minting</h4>
+                            <button class="collapse-btn" id="auth-toggle" type="button">▶</button>
+                        </div>
+                        <div class="auth-details collapsed" id="auth-details">
+                            <p>Sign in with Google to:</p>
+                            <ul>
+                                <li>✅ Create your secure Web3 wallet automatically</li>
+                                <li>✅ Mint NFTs on the blockchain</li>
+                                <li>✅ Access transaction history</li>
+                                <li>✅ Export wallet for use in other apps</li>
+                            </ul>
+                            <small><strong>Note:</strong> Radio submission works without sign-in</small>
+                        </div>
+                    </div>
+                    <button id="google-signin" class="btn btn-google">🔑 Sign in with Google</button>
+                    <span id="user-email" class="user-info"></span>
+                </div>
+                
+                <div class="upload-area" id="upload-area">
+                    <input type="file" id="audio-file" accept="audio/*" hidden>
+                    <div class="upload-content">
+                        <span class="upload-icon">🎧</span>
+                        <p>Drop your beat here or click to browse</p>
+                        <small>Supports MP3, WAV, FLAC (max 50MB)</small>
+                    </div>
+                </div>
+                
+                <!-- Audio Preview -->
+                <div id="audio-preview" class="audio-preview"></div>
+                
+                <!-- Audio Metadata Display -->
+                <div id="metadata-display" class="metadata-display" style="display: none;">
+                    <div class="analysis-header">
+                        <h4>📊 Audio Analysis</h4>
+                        <button class="collapse-btn" id="upload-analysis-toggle">▶</button>
+                    </div>
+                    <div class="analysis-content collapsed" id="upload-analysis-content">
+                        <div class="metadata-grid">
+                            <div class="meta-row">
+                                <span class="meta-label">Duration:</span>
+                                <span id="meta-duration">-</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">Quality:</span>
+                                <span id="meta-quality">-</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">Estimated BPM:</span>
+                                <span id="meta-bpm">-</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">Suggested Genre:</span>
+                                <span id="meta-genre">-</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">Energy Level:</span>
+                                <span id="meta-energy">-</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">File Size:</span>
+                                <span id="meta-size">-</span>
+                            </div>
+                        </div>
+                        <small class="meta-note">This analysis will be used to generate professional licensing terms</small>
+                    </div>
+                </div>
+                
+                <!-- Artist Information Form -->
+                <div id="artist-form" class="artist-form" style="display: none;">
+                    <h4>🎤 Artist Information</h4>
+                    <div class="form-grid">
+                        <div class="form-row">
+                            <label for="artist-name">Artist Name:</label>
+                            <input type="text" id="artist-name" placeholder="Your artist name" class="form-input">
+                        </div>
+                        <div class="form-row">
+                            <label for="stage-name">Stage Name:</label>
+                            <input type="text" id="stage-name" placeholder="Your stage name (optional)" class="form-input">
+                        </div>
+                        <div class="form-row">
+                            <label for="beat-title">Beat/Song Title:</label>
+                            <input type="text" id="beat-title" placeholder="Enter beat title" class="form-input">
+                        </div>
+                        <div class="form-row">
+                            <label for="content-type">Content Type:</label>
+                            <select id="content-type" class="form-input">
+                                <option value="">Select Content Type</option>
+                                <option value="instrumental">Instrumental (Beat/Track without vocals)</option>
+                                <option value="vocal">Vocal (Song with vocals)</option>
+                                <option value="mixed">Mixed (Beat with vocal samples)</option>
+                            </select>
+                            <small class="field-help">Determines licensing templates and metadata requirements</small>
+                        </div>
+                        <div class="form-row">
+                            <label for="genre-select">Genre:</label>
+                            <select id="genre-select" class="form-input">
+                                <option value="">Select Genre</option>
+                                <option value="Hip-Hop">Hip-Hop</option>
+                                <option value="Trap">Trap</option>
+                                <option value="House">House</option>
+                                <option value="Techno">Techno</option>
+                                <option value="Drum & Bass">Drum & Bass</option>
+                                <option value="Pop">Pop</option>
+                                <option value="Rock">Rock</option>
+                                <option value="Electronic">Electronic</option>
+                                <option value="Chill/Lo-Fi">Chill/Lo-Fi</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cover Image Upload -->
+                <div class="image-upload">
+                    <label for="cover-image">Cover Image (optional):</label>
+                    <input type="file" id="cover-image" accept="image/*">
+                    <img id="image-preview" class="image-preview" style="display: none;">
+                </div>
+                
+                <div class="progress-bar" id="progress-bar" style="display: none;">
+                    <div class="progress-fill"></div>
+                </div>
+                
+                <button id="proceed-to-licensing" class="btn btn-primary" style="display: none; margin-top: 15px;">Proceed to Licensing</button>
+            </section>
+
+            <!-- AI Licensing Section -->
+            <section id="licensing-section" class="section">
+                <h2>AI-Generated Licensing</h2>
+                
+                <!-- License Options -->
+                <div class="license-options">
+                    <h4>📋 License Configuration</h4>
+                    <div class="form-grid">
+                        <div class="form-row">
+                            <label for="license-type">License Type:</label>
+                            <select id="license-type" class="form-input">
+                                <option value="non-exclusive">Non-Exclusive (Multiple buyers)</option>
+                                <option value="exclusive">Exclusive (Single buyer only)</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="commercial-use">Commercial Use:</label>
+                            <select id="commercial-use" class="form-input">
+                                <option value="allowed">Commercial Use Allowed</option>
+                                <option value="non-commercial">Non-Commercial Only</option>
+                                <option value="limited">Limited Commercial Use</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="for-sale">Availability:</label>
+                            <select id="for-sale" class="form-input">
+                                <option value="for-sale">For Sale (Public)</option>
+                                <option value="not-for-sale">Not For Sale (Private)</option>
+                                <option value="limited-edition">Limited Edition</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ai-status">
+                    <span class="ai-icon">🤖</span>
+                    <span id="ai-status-text">Ready to generate licensing terms</span>
+                </div>
+                <textarea id="license-terms" placeholder="AI will generate licensing terms here..." rows="6"></textarea>
+                <div class="license-actions">
+                    <button id="generate-license" class="btn btn-secondary">Generate with AI</button>
+                    <button id="approve-license" class="btn btn-primary" disabled>Approve & Continue to ISRC</button>
+                </div>
+            </section>
+
+            <!-- ISRC Professional Minting Section -->
+            <section id="isrc-minting-section" class="section">
+                <div class="section-header">
+                    <h2>🎵 ISRC Professional Registration</h2>
+                    <p class="section-subtitle">Industry-standard music identification codes</p>
+                </div>
+
+                <div class="isrc-container">
+                    <!-- ISRC Generation Card -->
+                    <div class="isrc-card">
+                        <div class="card-header">
+                            <h3>Generate ISRC Code</h3>
+                            <span class="status-badge" id="isrc-status">Ready</span>
+                        </div>
+                        
+                        <div class="isrc-preview">
+                            <div class="isrc-display" style="margin: 12px 0; padding: 12px; background: rgba(76, 175, 80, 0.1); border: 1px solid #4CAF50; border-radius: 6px; text-align: center;">
+                                <div style="font-size: 12px; color: #666; margin-bottom: 4px;">Generated ISRC Code:</div>
+                                <span class="isrc-code" id="generated-isrc" style="font-family: monospace; font-size: 18px; font-weight: bold; color: #333; display: block; margin: 8px 0;">ZA-80G-25-00000</span>
+                                <button class="copy-btn" id="copy-isrc" style="background: #4CAF50; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px;">📋 Copy</button>
+                            </div>
+                            <div class="isrc-breakdown">
+                                <span class="isrc-part">ZA <small>Country</small></span>
+                                <span class="isrc-part">80G <small>Registrant</small></span>
+                                <span class="isrc-part">25 <small>Year</small></span>
+                                <span class="isrc-part">00000 <small>Designation</small></span>
+                            </div>
+                        </div>
+
+                        <div class="isrc-actions">
+                            <button class="btn btn-primary" id="generate-isrc">Generate New ISRC</button>
+                            <button class="btn btn-secondary" id="validate-isrc" disabled>Validate Code</button>
+                        </div>
+                    </div>
+
+                    <!-- Sponsored Content Placement -->
+                    <div class="sponsor-placement-card">
+                        <div class="card-header">
+                            <h3>🎯 Sponsored Content Opportunity</h3>
+                            <span class="revenue-badge">+$2.50 Revenue</span>
+                        </div>
+                        
+                        <div class="sponsor-content" id="isrc-sponsor-content">
+                            <div class="sponsor-banner">
+                                <div class="sponsor-message">
+                                    <h4>Professional Music Distribution</h4>
+                                    <p>Get your music on Spotify, Apple Music & more with industry-standard ISRC codes</p>
+                                    <button class="sponsor-cta">Learn More</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="sponsor-controls">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="enable-sponsor-isrc" checked>
+                                <span class="checkmark"></span>
+                                Enable sponsored content (+$2.50 per mint)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Minting Integration -->
+                <div class="minting-integration">
+                    <div class="integration-header">
+                        <h3>Ready for Minting</h3>
+                        <div class="integration-checklist">
+                            <div class="check-item">
+                                <span class="check-icon">⏳</span>
+                                <span>ISRC Generated</span>
+                            </div>
+                            <div class="check-item">
+                                <span class="check-icon">⏳</span>
+                                <span>ISRC Validated</span>
+                            </div>
+                            <div class="check-item">
+                                <span class="check-icon">⏳</span>
+                                <span>Ready for Minting</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="minting-actions">
+                        <button class="btn btn-primary btn-large" id="proceed-to-mint" disabled style="opacity: 0.6;">
+                            Proceed to NFT Minting
+                            <span class="btn-arrow">→</span>
+                        </button>
+                        <small style="color: #666; margin-top: 8px; display: block; text-align: center;">
+                            Generate and validate ISRC code first
+                        </small>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Minting Section -->
+            <section id="minting-section" class="section">
+                <h2>Mint NFT</h2>
+                <div class="mint-preview">
+                    <div class="nft-preview">
+                        <div class="nft-image">🎵</div>
+                        <div class="nft-details">
+                            <h3 id="nft-title">Your Beat Title</h3>
+                            <p id="nft-description">AI-generated description</p>
+                        </div>
+                    </div>
+                </div>
+                <button id="mint-nft" class="btn btn-primary" disabled>Mint NFT</button>
+                <div id="mint-status" class="mint-status"></div>
+            </section>
+
+            <!-- Success Section -->
+            <section id="success-section" class="section">
+                <div class="success-content">
+                    <span class="success-icon">✅</span>
+                    <h2>NFT Minted Successfully!</h2>
+                    <div class="transaction-details">
+                        <p><strong>Transaction Hash:</strong></p>
+                        <code id="tx-hash"></code>
+                        <div class="action-buttons">
+                            <button id="view-nft" class="btn btn-primary">View Transaction</button>
+                            <button id="download-package" class="btn btn-secondary">📦 Download Package</button>
+                            <button id="mint-another" class="btn btn-secondary">Mint Another</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SEO/Social Sharing Section -->
+            <section id="share-section" class="section">
+                <h2>Social Sharing & SEO</h2>
+                <div class="share-content">
+                    <div class="nft-selector">
+                        <label for="share-nft-select">Select NFT to Share:</label>
+                        <select id="share-nft-select" class="nft-select">
+                            <option value="">Choose an NFT...</option>
+                        </select>
+                    </div>
+                    
+                    <div id="share-preview" class="share-preview" style="display: none;">
+                        <h3>Preview</h3>
+                        <div class="social-card">
+                            <div class="card-image" id="share-card-image">🎵</div>
+                            <div class="card-content">
+                                <h4 id="share-card-title">NFT Title</h4>
+                                <p id="share-card-description">Description</p>
+                                <div class="card-meta">
+                                    <span id="share-card-artist">Artist</span>
+                                    <span id="share-card-price">Price</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="seo-metadata">
+                            <h4>SEO Metadata</h4>
+                            <div class="meta-item">
+                                <label>Title:</label>
+                                <input type="text" id="seo-title" class="meta-input">
+                            </div>
+                            <div class="meta-item">
+                                <label>Description:</label>
+                                <textarea id="seo-description" class="meta-input" rows="3"></textarea>
+                            </div>
+                            <div class="meta-item">
+                                <label>Keywords:</label>
+                                <input type="text" id="seo-keywords" class="meta-input" placeholder="music, nft, beats, blockchain">
+                            </div>
+                        </div>
+                        
+                        <div class="share-actions">
+                            <h4>Share On</h4>
+                            <div class="social-buttons">
+                                <button class="social-btn twitter" id="share-twitter">🐦 Twitter</button>
+                                <button class="social-btn facebook" id="share-facebook">🔵 Facebook</button>
+                                <button class="social-btn linkedin" id="share-linkedin">🔗 LinkedIn</button>
+                                <button class="social-btn reddit" id="share-reddit">🔴 Reddit</button>
+                            </div>
+                            
+                            <div class="share-tools">
+                                <button class="btn btn-secondary" id="copy-link">🔗 Copy Link</button>
+                                <button class="btn btn-secondary" id="generate-qr">📱 QR Code</button>
+                                <button class="btn btn-primary" id="generate-seo">🌐 Generate SEO</button>
+                            </div>
+                        </div>
+                        
+                        <div id="qr-code" class="qr-code" style="display: none;"></div>
+                        <div id="seo-output" class="seo-output" style="display: none;"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- AI Insights Section -->
+            <section id="insights-section" class="section">
+                <h2>AI Insights</h2>
+                <div class="insights-content">
+                    <div class="insights-header">
+                        <p class="insights-description">Smart insights that grow with your music journey</p>
+                        <button id="grow-new-branch" class="btn btn-primary btn-grow">Grow New Branch</button>
+                    </div>
+                    
+                    <div id="insights-list" class="insights-list">
+                        <div class="empty-insights">
+                            <div class="empty-icon">AI</div>
+                            <p>Your AI insights will grow here</p>
+                            <small>Upload beats, update your profile, and prepare radio submissions to generate personalized insights</small>
+                        </div>
+                    </div>
+                    
+                    <div class="insights-footer">
+                        <small class="insights-note">
+                            All insights are generated locally and stored privately in your browser
+                        </small>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Public Asset Hub Section -->
+            <section id="hub-section" class="section">
+                <div class="hub-header">
+                    <h2>🎵 BeatsChain Asset Hub</h2>
+                    <div class="hub-controls">
+                        <div class="search-bar">
+                            <input type="text" id="asset-search" placeholder="Search by title, artist, ISRC..." />
+                            <button id="search-btn">🔍</button>
+                        </div>
+                        <div class="filter-controls">
+                            <select id="asset-type-filter">
+                                <option value="all">All Assets</option>
+                                <option value="nft">NFTs</option>
+                                <option value="campaign">Campaigns</option>
+                                <option value="isrc">ISRC Codes</option>
+                            </select>
+                            <select id="sort-options">
+                                <option value="newest">Newest First</option>
+                                <option value="popular">Most Popular</option>
+                                <option value="trending">Trending</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hub-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-assets">0</span>
+                        <span class="stat-label">Total Assets</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-plays">0</span>
+                        <span class="stat-label">Total Plays</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="active-campaigns">0</span>
+                        <span class="stat-label">Active Campaigns</span>
+                    </div>
+                </div>
+
+                <div class="hub-content">
+                    <div id="asset-grid" class="asset-hub">
+                        <!-- Asset cards populated here -->
+                    </div>
+                    
+                    <div class="hub-pagination">
+                        <button id="load-more" class="btn btn-secondary">Load More Assets</button>
+                    </div>
+                </div>
+
+                <!-- Asset Detail Modal -->
+                <div id="asset-detail-modal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 id="modal-title">Asset Details</h3>
+                            <button class="modal-close">&times;</button>
+                        </div>
+                        <div class="modal-body" id="asset-detail-content">
+                            <!-- Asset details populated here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Radio Submission Section -->
+            <section id="radio-section" class="section">
+                <h2>Radio Submission</h2>
+                <div class="radio-info">
+                    <p><strong>Independent Radio Submission System</strong></p>
+                    <small>Upload audio files specifically for radio submission - separate from NFT minting</small>
+                </div>
+                
+                <!-- Package Limits & Sign-in Context -->
+                <div class="package-limits-context" id="radio-package-limits">
+                    <div class="limits-info">
+                        <div class="current-limit">
+                            <span class="limit-icon">📦</span>
+                            <span class="limit-text">Package Limit: <strong id="radio-current-limit">1 per day</strong></span>
+                        </div>
+                        <div class="upgrade-option" id="radio-upgrade-option">
+                            <span class="upgrade-text">Sign in for <strong>4x more packages daily</strong></span>
+                            <button id="radio-signin-btn" class="btn btn-primary btn-sm">🔑 Sign In</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="radio-content">
+                    <!-- Left Navigation Panel -->
+                    <div class="radio-navigation">
+                        <div class="radio-steps">
+                            <div class="step-indicator">
+                                <div class="step active" data-step="1">
+                                    <span class="step-number">1</span>
+                                    <span class="step-label">Audio Upload</span>
+                                </div>
+                                <div class="step" data-step="2">
+                                    <span class="step-number">2</span>
+                                    <span class="step-label">Track Info</span>
+                                </div>
+                                <div class="step" data-step="3">
+                                    <span class="step-number">3</span>
+                                    <span class="step-label">Cover Image</span>
+                                </div>
+                                <div class="step" data-step="4">
+                                    <span class="step-number">4</span>
+                                    <span class="step-label">Validation</span>
+                                </div>
+                                <div class="step" data-step="5">
+                                    <span class="step-number">5</span>
+                                    <span class="step-label">Split Sheets</span>
+                                </div>
+                                <div class="step" data-step="6">
+                                    <span class="step-number">6</span>
+                                    <span class="step-label">Package</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Content Area -->
+                    <div class="radio-main-content">
+                    
+                    <!-- Step 1: Audio Upload -->
+                    <div id="radio-step-1" class="radio-step active">
+                        <div id="radio-validation" class="radio-validation">
+                            <!-- Dynamic content loaded by JavaScript -->
+                        </div>
+                        
+                        <!-- Radio Audio Preview -->
+                        <div id="radio-audio-preview" class="audio-preview"></div>
+                        
+                        <!-- Radio Audio Analysis -->
+                        <div id="radio-metadata-display" class="metadata-display" style="display: none;">
+                            <div class="analysis-header">
+                                <h4>📊 Audio Analysis</h4>
+                                <button class="collapse-btn" id="radio-analysis-toggle" type="button">▶</button>
+                            </div>
+                            <div class="analysis-content collapsed" id="radio-analysis-content">
+                                <div class="metadata-grid">
+                                    <div class="meta-row">
+                                        <span class="meta-label">Duration:</span>
+                                        <span id="radio-meta-duration">-</span>
+                                    </div>
+                                    <div class="meta-row">
+                                        <span class="meta-label">Quality:</span>
+                                        <span id="radio-meta-quality">-</span>
+                                    </div>
+                                    <div class="meta-row">
+                                        <span class="meta-label">Estimated BPM:</span>
+                                        <span id="radio-meta-bpm">-</span>
+                                    </div>
+                                    <div class="meta-row">
+                                        <span class="meta-label">Suggested Genre:</span>
+                                        <span id="radio-meta-genre">-</span>
+                                    </div>
+                                    <div class="meta-row">
+                                        <span class="meta-label">Energy Level:</span>
+                                        <span id="radio-meta-energy">-</span>
+                                    </div>
+                                    <div class="meta-row">
+                                        <span class="meta-label">File Size:</span>
+                                        <span id="radio-meta-size">-</span>
+                                    </div>
+                                </div>
+                                <small class="meta-note">This analysis will be used for radio compliance validation</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2: Track Information -->
+                    <div id="radio-step-2" class="radio-step">
+                        <h4>Track Information</h4>
+                        <div class="track-info-form">
+                            <div class="form-grid">
+                                <div class="form-row">
+                                    <label for="radio-track-title">Track Title *</label>
+                                    <input type="text" id="radio-track-title" class="form-input" placeholder="Enter track title" required>
+                                </div>
+                                <div class="form-row">
+                                    <label for="radio-artist-name">Primary Artist *</label>
+                                    <input type="text" id="radio-artist-name" class="form-input" placeholder="Artist/Band name" required>
+                                </div>
+                                <div class="form-row">
+                                    <label for="radio-stage-name">Stage/Performance Name</label>
+                                    <input type="text" id="radio-stage-name" class="form-input" placeholder="Stage name (optional)">
+                                </div>
+                                <div class="form-row">
+                                    <label for="radio-genre">Genre *</label>
+                                    <select id="radio-genre" class="form-input" required>
+                                        <option value="">Select Genre</option>
+                                        <option value="Afrikaans">Afrikaans</option>
+                                        <option value="Gospel">Gospel</option>
+                                        <option value="Jazz">Jazz</option>
+                                        <option value="Kwaito">Kwaito</option>
+                                        <option value="House">House</option>
+                                        <option value="Hip-Hop">Hip-Hop</option>
+                                        <option value="Rock">Rock</option>
+                                        <option value="Pop">Pop</option>
+                                        <option value="Traditional">Traditional</option>
+                                        <option value="Electronic">Electronic</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-row">
+                                    <label for="radio-language">Language *</label>
+                                    <select id="radio-language" class="form-input" required>
+                                        <option value="">Select Language</option>
+                                        <option value="English">English</option>
+                                        <option value="Afrikaans">Afrikaans</option>
+                                        <option value="Zulu">Zulu</option>
+                                        <option value="Xhosa">Xhosa</option>
+                                        <option value="Sotho">Sotho</option>
+                                        <option value="Tswana">Tswana</option>
+                                        <option value="Pedi">Pedi</option>
+                                        <option value="Venda">Venda</option>
+                                        <option value="Tsonga">Tsonga</option>
+                                        <option value="Ndebele">Ndebele</option>
+                                        <option value="Swati">Swati</option>
+                                        <option value="Mixed">Mixed Languages</option>
+                                    </select>
+                                </div>
+                                <div class="form-row">
+                                    <label for="radio-record-label">Record Label</label>
+                                    <input type="text" id="radio-record-label" class="form-input" placeholder="Record label (optional)">
+                                </div>
+                                <div class="form-row">
+                                    <label for="radio-isrc">ISRC Code</label>
+                                    <div class="isrc-input-group">
+                                        <input type="text" id="radio-isrc" class="form-input" placeholder="ZA-80G-YY-NNNNN (professional format)" pattern="ZA-[A-Z0-9]{3}-[0-9]{2}-[0-9]{5}">
+                                        <button type="button" id="generate-isrc-btn" class="btn btn-secondary btn-sm isrc-generate-btn">Generate ISRC</button>
+                                    </div>
+                                    <small class="field-help">International Standard Recording Code - Professional 80G registrant authority</small>
+                                </div>
+                                <div class="form-row">
+                                    <label for="radio-content-rating">Content Rating *</label>
+                                    <select id="radio-content-rating" class="form-input" required>
+                                        <option value="">Select Rating</option>
+                                        <option value="Clean">Clean (No explicit content)</option>
+                                        <option value="Advisory">Parental Advisory (Explicit lyrics)</option>
+                                        <option value="Instrumental">Instrumental (No vocals)</option>
+                                    </select>
+                                </div>
+                                <div class="form-row">
+                                    <label for="radio-release-type">Release Type *</label>
+                                    <select id="radio-release-type" class="form-input" required>
+                                        <option value="">Select Release Type</option>
+                                        <option value="Single">Single</option>
+                                        <option value="Album">Album</option>
+                                        <option value="EP">EP</option>
+                                        <option value="Compilation">Compilation</option>
+                                    </select>
+                                </div>
+                                <div class="form-row">
+                                    <label for="radio-release-year">Release Year *</label>
+                                    <input type="number" id="radio-release-year" class="form-input" min="1900" max="2030" required>
+                                </div>
+                            </div>
+                            <div class="step-actions">
+                                <button id="radio-step-2-next" class="btn btn-primary">Next: Cover Image</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3: Cover Image Upload -->
+                    <div id="radio-step-3" class="radio-step">
+                        <h4>Cover Image Upload</h4>
+                        <div class="cover-upload-section">
+                            <p class="requirement-note"><strong>Required for Radio Submission</strong> - Radio stations need cover art for display</p>
+                            
+                            <div class="cover-upload-area" id="radio-cover-upload">
+                                <input type="file" id="radio-cover-image" accept="image/*" hidden required>
+                                <div class="upload-content">
+                                    <span class="upload-icon">IMG</span>
+                                    <p>Upload cover image</p>
+                                    <small>JPG, PNG (min 500x500px, max 5MB)</small>
+                                </div>
+                            </div>
+                            
+                            <div id="radio-cover-preview" class="cover-preview" style="display: none;">
+                                <img id="radio-cover-img" class="cover-image">
+                                <div class="cover-info">
+                                    <p id="radio-cover-filename"></p>
+                                    <p id="radio-cover-dimensions"></p>
+                                    <p id="radio-cover-size"></p>
+                                </div>
+                            </div>
+                            
+                            <div class="cover-requirements">
+                                <h5>📋 Image Requirements:</h5>
+                                <ul>
+                                    <li>✅ Minimum 500x500 pixels (recommended 1400x1400)</li>
+                                    <li>✅ Square aspect ratio (1:1)</li>
+                                    <li>✅ JPG or PNG format</li>
+                                    <li>✅ Maximum 5MB file size</li>
+                                    <li>✅ High quality, clear artwork</li>
+                                    <li>❌ No explicit content in artwork</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="step-actions">
+                                <button id="radio-step-3-back" class="btn btn-secondary">Back: Track Info</button>
+                                <button id="radio-step-3-next" class="btn btn-primary" disabled>Next: Validation</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4: Radio Validation -->
+                    <div id="radio-step-4" class="radio-step">
+                        <h4>Radio Compliance Check</h4>
+                        <div id="radio-validation-results" class="validation-results">
+                            <!-- Validation results will be populated here -->
+                        </div>
+                        <div class="step-actions">
+                            <button id="radio-step-4-back" class="btn btn-secondary">Back: Cover Image</button>
+                            <button id="validate-radio" class="btn btn-secondary">Validate for Radio</button>
+                            <button id="radio-step-4-next" class="btn btn-primary" disabled>Next: Split Sheets</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 5: Split Sheets -->
+                    <div id="radio-step-5" class="radio-step">
+                        <!-- SAMRO Compliance Fields -->
+                        <h4>🏛️ SAMRO Compliance Fields</h4>
+                        <div class="samro-form">
+                            <div class="form-grid">
+                                <div class="form-row">
+                                    <label for="samro-composer-name">Composer Name *</label>
+                                    <input type="text" id="samro-composer-name" class="form-input" placeholder="Legal name of composer" required>
+                                    <small class="field-help">Person who created the musical composition</small>
+                                </div>
+                                <div class="form-row">
+                                    <label for="samro-composer-number">Composer SAMRO Number</label>
+                                    <input type="text" id="samro-composer-number" class="form-input" placeholder="SAMRO member number">
+                                </div>
+                                <div class="form-row">
+                                    <label for="samro-publisher">Publisher</label>
+                                    <input type="text" id="samro-publisher" class="form-input" placeholder="Publishing company name">
+                                    <small class="field-help">Company that owns publishing rights</small>
+                                </div>
+                                <div class="form-row">
+                                    <label for="samro-iswc">ISWC Code</label>
+                                    <input type="text" id="samro-iswc" class="form-input" placeholder="T-123456789-C">
+                                    <small class="field-help">International Standard Work Code for the composition</small>
+                                </div>
+                                <div class="form-row">
+                                    <label for="samro-work-type">Work Type *</label>
+                                    <select id="samro-work-type" class="form-input" required>
+                                        <option value="">Select Work Type</option>
+                                        <option value="original">Original Work</option>
+                                        <option value="arrangement">Arrangement</option>
+                                        <option value="adaptation">Adaptation</option>
+                                        <option value="translation">Translation</option>
+                                    </select>
+                                </div>
+                                <div class="form-row">
+                                    <label for="samro-territory">Territory Rights</label>
+                                    <select id="samro-territory" class="form-input">
+                                        <option value="south-africa">South Africa</option>
+                                        <option value="africa">Africa</option>
+                                        <option value="worldwide">Worldwide</option>
+                                    </select>
+                                </div>
+                                <div class="form-row">
+                                    <label for="samro-performance-share">Performance Rights Share (%)</label>
+                                    <input type="number" id="samro-performance-share" class="form-input" min="0" max="100" value="50">
+                                    <small class="field-help">Percentage of performance royalties</small>
+                                </div>
+                                <div class="form-row">
+                                    <label for="samro-mechanical-share">Mechanical Rights Share (%)</label>
+                                    <input type="number" id="samro-mechanical-share" class="form-input" min="0" max="100" value="50">
+                                    <small class="field-help">Percentage of mechanical royalties</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="split-sheets" class="split-sheets">
+                            <h4>Split Sheets (SAMRO Compliant)</h4>
+                            <p class="samro-info">Required for South African Music Rights Organisation (SAMRO) registration</p>
+                            
+                            <div class="contributors-list">
+                                <div class="contributor-item">
+                                    <div class="contributor-row">
+                                        <input type="text" placeholder="Primary Artist/Producer Name" class="form-input contributor-name">
+                                        <select class="form-input contributor-role">
+                                            <option value="artist">Artist</option>
+                                            <option value="producer">Producer</option>
+                                            <option value="songwriter">Songwriter</option>
+                                            <option value="vocalist">Vocalist</option>
+                                        </select>
+                                        <input type="number" placeholder="%" class="form-input contributor-percentage" min="0" max="100" value="100">
+                                    </div>
+                                    <div class="contributor-samro-row">
+                                        <input type="text" placeholder="SAMRO Number (optional)" class="form-input samro-number">
+                                        <button type="button" class="remove-contributor" style="display: none;">❌</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button id="add-contributor" class="btn btn-secondary">Add Contributor</button>
+                            <div class="percentage-total">
+                                <span>Total: <span id="total-percentage">100</span>%</span>
+                                <small class="percentage-note">Must equal exactly 100%</small>
+                            </div>
+                            
+                            <div class="step-actions">
+                                <button id="radio-step-5-back" class="btn btn-secondary">Back: Validation</button>
+                                <button id="radio-step-5-next" class="btn btn-primary" disabled>Next: Generate Package</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 6: Package Generation -->
+                    <div id="radio-step-6" class="radio-step">
+                        <h4>Radio Submission Package</h4>
+                        <div class="package-summary">
+                            <h5>Essential Package Contents:</h5>
+                            <ul id="package-contents">
+                                <li>🎵 Audio file (radio-ready format)</li>
+                                <li>🖼️ Cover image (station display)</li>
+                                <li>📄 Track metadata (JSON format)</li>
+                                <li>📋 Split sheets (SAMRO compliant)</li>
+                                <li>📇 Contact card with website/email/phone (VCF)</li>
+                                <li>📡 Broadcast metadata (XML)</li>
+                                <li>📊 Track data with contact info (CSV)</li>
+                                <li>🏛️ SAMRO documentation</li>
+                                <li>📝 Artist biography (if provided)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="package-info">
+                            <p><strong>Complete Contact Info:</strong> Website, email, and phone included in all formats</p>
+                            <p><strong>Radio Ready:</strong> Essential formats optimized for radio station requirements</p>
+                            <p><strong>SAMRO Compliant:</strong> Includes all required South African music rights documentation</p>
+                        </div>
+                        
+                        <div class="radio-actions">
+                            <button id="radio-step-6-back" class="btn btn-secondary">Back: Split Sheets</button>
+                            <button id="generate-radio-package" class="btn btn-primary">Generate Professional Package</button>
+                        </div>
+                        
+                        <div class="package-limit-reminder" id="radio-package-reminder" style="display: none;">
+                            <div class="limit-warning">
+                                <span class="warning-icon">⚠️</span>
+                                <span class="warning-text">Daily package limit reached. <strong>Sign in for 4x more packages!</strong></span>
+                                <button id="radio-limit-signin" class="btn btn-primary btn-sm">🔑 Sign In</button>
+                            </div>
+                        </div>
+                        
+                        <div id="package-status" class="package-status" style="display: none;"></div>
+                    </div>
+                    </div> <!-- Close radio-main-content -->
+                </div> <!-- Close radio-content -->
+            </section>
+        </main>
+
+        <!-- Wallet Dashboard -->
+        <aside class="wallet-panel collapsed" id="wallet-panel">
+            <div class="wallet-header" id="wallet-header">
+                <h3>👛 Wallet</h3>
+                <button id="toggle-wallet" class="btn-icon">▶</button>
+            </div>
+            <div class="wallet-content" id="wallet-content">
+                <div class="wallet-balance">
+                    <span>Balance: </span>
+                    <span id="wallet-balance">0.0000 MATIC</span>
+                </div>
+                <div class="nft-list">
+                    <h4>Your NFTs</h4>
+                    <div id="nft-collection"></div>
+                </div>
+                
+                <!-- WalletConnect Integration -->
+                <div class="wallet-connect-section" id="wallet-connect-section">
+                    <h4>External Wallet</h4>
+                    <button id="connect-external-wallet" class="btn btn-secondary btn-sm">🔗 Connect Wallet</button>
+                    <div id="external-wallet-status" class="wallet-status" style="display: none;">
+                        <span class="status-indicator">✓</span>
+                        <span class="status-text">External wallet connected</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    
+        <!-- Passphrase Modal (for wallet encryption UX) -->
+        <div id="passphrase-modal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="passphrase-modal-title">Unlock Wallet</h3>
+                    <button class="modal-close" id="passphrase-modal-close">&times;</button>
+                </div>
+                <div class="modal-body" id="passphrase-modal-body">
+                    <!-- Content is injected by the passphrase provider script -->
+                </div>
+                <div class="modal-footer" id="passphrase-modal-footer" style="text-align:right; padding:12px;">
+                    <!-- Buttons injected dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Production lock: force-dev-flags-off early (prevents accidental bypass in production) -->
+    <script src="../lib/production-lock.js"></script>
+
+    <!-- OAuth Fix (Load Early) -->
+    <script src="oauth-fix.js"></script>
+    
+    <!-- Graceful Enhancement Scripts (Load First) -->
+    <script src="../lib/graceful-error-handler.js"></script>
+    <script src="../lib/oauth-graceful-fallback.js"></script>
+    <script src="../lib/production-status-enhancer.js"></script>
+    <script src="../lib/production-initialization-fix.js"></script>
+    
+    <!-- Core Libraries -->
+    <script src="../lib/env-config.js"></script>
+    <script src="../lib/config.js"></script>
+
+    <!-- Unified System (New) -->
+    <script src="../lib/migration-manager.js"></script>
+    <script src="../lib/admin-wallet-manager.js"></script>
+    <script src="../lib/unified-auth.js"></script>
+    <!-- Passphrase modal provider (before wallet secure storage) -->
+    <script src="popup/passphrase-modal.js"></script>
+    <script src="../lib/wallet-secure-storage.js"></script>
+    <script src="../lib/wallet-context.js"></script>
+    <script src="../lib/wallet-link-client.js"></script>
+    <script src="popup/wallet-link-handler.js"></script>
+
+    <!-- Legacy Libraries (Preserved for compatibility) -->
+    <script src="../lib/audio-manager.js"></script>
+    <script src="../lib/crypto-utils.js"></script>
+    <script src="../lib/storage.js"></script>
+    <script src="../lib/wallet.js"></script>
+    <script src="../lib/chrome-ai.js"></script>
+    <script src="../lib/auth.js"></script>
+    <script src="../lib/enhanced-auth.js"></script>
+    <script src="../lib/session-manager.js"></script>
+    <script src="../lib/ipfs.js"></script>
+    <script src="../lib/solana-config.js"></script>
+    <script src="../lib/phantom-wallet.js"></script>
+    <script src="../lib/solana-wallet.js"></script>
+    <script src="../lib/solana-integration.js"></script>
+    <script src="../lib/thirdweb.js"></script>
+    <script src="../lib/zip-utils.js"></script>
+    <script src="../lib/download-manager.js"></script>
+    <script src="../lib/radio-validator.js"></script>
+    <script src="../lib/radio-metadata.js"></script>
+    <script src="../lib/blockchain-verifier.js"></script>
+    <script src="../lib/split-sheets.js"></script>
+    <script src="../lib/user-input-manager.js"></script>
+    <script src="../lib/security-validator.js"></script>
+    <script src="../lib/radio-ipfs-manager.js"></script>
+    <script src="../lib/smart-trees-ai.js"></script>
+    <script src="../lib/samro-metadata.js"></script>
+    <script src="../lib/isrc-manager.js"></script>
+    <script src="../lib/audio-tagging-manager.js"></script>
+    <script src="../lib/image-tagging-manager.js"></script>
+    <script src="../lib/metadata-writer.js"></script>
+    <script src="../lib/admin-dashboard.js"></script>
+    <script src="../lib/usage-limits.js"></script>
+    <script src="../lib/sponsor-content.js"></script>
+    <script src="../lib/google-drive-sponsor-manager.js"></script>
+    <script src="../lib/enhanced-sponsor-integration.js"></script>
+    <script src="../lib/samro-pdf-manager.js"></script>
+    <script src="../lib/sponsored-minting.js"></script>
+    <script src="../lib/thirdweb-gasless.js"></script>
+    <script src="../lib/nft-metadata-integrator.js"></script>
+    <script src="../lib/csrf-protection.js"></script>
+    <script src="../lib/ipfs-asset-manager.js"></script>
+    <script src="../lib/native-sponsor-manager.js"></script>
+    <script src="../lib/campaign-manager.js"></script>
+    <script src="../lib/minting-sponsor-integration.js"></script>
+    <script src="../lib/radio-sponsor-integration.js"></script>
+    <script src="../lib/analytics-manager.js"></script>
+    <script src="../lib/isrc-minting-manager.js"></script>
+    <script src="../lib/asset-management-hub.js"></script>
+    <script src="../lib/asset-card-renderer.js"></script>
+    <script src="../lib/public-asset-hub-manager.js"></script>
+    <script src="../lib/mock-data-generator.js"></script>
+    <script src="radio-navigation.js"></script>
+    
+
+    
+    <!-- Demo Data Initializer (for showcasing recent implementations) -->
+    <script src="../lib/demo-data-initializer.js"></script>
+    <script src="../lib/chrome-ai-revenue-optimizer.js"></script>
+    <script src="../lib/revenue-management-system.js"></script>
+    <script src="../lib/revenue-dashboard-ui.js"></script>
+    
+    <!-- Main Application -->
+    <script src="popup.js"></script>
+</body>
+</html>

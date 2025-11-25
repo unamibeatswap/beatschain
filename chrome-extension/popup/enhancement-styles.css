@@ -1,0 +1,26 @@
+/* Force all sponsor text to be visible */
+.sponsor-name,
+.sponsor-message,
+.sponsor-link,
+.sponsor-disclosure {
+    color: #000000 !important;
+    background: transparent !important;
+}
+
+.sponsor-link {
+    background: #007bff !important;
+    color: #ffffff !important;
+}
+
+.sponsor-content-display,
+.google-drive-sponsor-card,
+.post-package-sponsor-container {
+    background: #f8f9fa !important;
+    border: 2px solid #007bff !important;
+}
+
+.sponsor-label {
+    background: #dc3545 !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}

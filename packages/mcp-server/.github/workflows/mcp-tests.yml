@@ -1,0 +1,23 @@
+name: MCP package tests
+
+on:
+  push:
+    paths:
+      - 'packages/mcp-server/**'
+  pull_request:
+    paths:
+      - 'packages/mcp-server/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: npm --prefix packages/mcp-server ci
+      - name: Run tests
+        run: npm --prefix packages/mcp-server test

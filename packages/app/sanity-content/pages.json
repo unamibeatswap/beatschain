@@ -1,0 +1,170 @@
+[
+  {
+    "_type": "page",
+    "title": "📞 Contact BeatsChain",
+    "slug": {
+      "_type": "slug",
+      "current": "contact"
+    },
+    "content": [
+      {
+        "_type": "block",
+        "_key": "contact-placeholder",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "_key": "contact-placeholder-span",
+            "text": "Content for contact page",
+            "marks": []
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "metaTitle": "📞 Contact BeatsChain",
+      "metaDescription": "BeatsChain - 📞 Contact BeatsChain"
+    }
+  },
+  {
+    "_type": "page",
+    "title": "Web3 & Cryptocurrency Disclaimer",
+    "slug": {
+      "_type": "slug",
+      "current": "disclaimer"
+    },
+    "content": [
+      {
+        "_type": "block",
+        "_key": "disclaimer-placeholder",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "_key": "disclaimer-placeholder-span",
+            "text": "Content for disclaimer page",
+            "marks": []
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "metaTitle": "Web3 & Cryptocurrency Disclaimer",
+      "metaDescription": "BeatsChain - Web3 & Cryptocurrency Disclaimer"
+    }
+  },
+  {
+    "_type": "page",
+    "title": "❓ Frequently Asked Questions",
+    "slug": {
+      "_type": "slug",
+      "current": "faq"
+    },
+    "content": [
+      {
+        "_type": "block",
+        "_key": "faq-placeholder",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "_key": "faq-placeholder-span",
+            "text": "Content for faq page",
+            "marks": []
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "metaTitle": "❓ Frequently Asked Questions",
+      "metaDescription": "BeatsChain - ❓ Frequently Asked Questions"
+    }
+  },
+  {
+    "_type": "page",
+    "title": "📚 BeatsChain Complete Guide",
+    "slug": {
+      "_type": "slug",
+      "current": "guide"
+    },
+    "content": [
+      {
+        "_type": "block",
+        "_key": "guide-placeholder",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "_key": "guide-placeholder-span",
+            "text": "Content for guide page",
+            "marks": []
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "metaTitle": "📚 BeatsChain Complete Guide",
+      "metaDescription": "BeatsChain - 📚 BeatsChain Complete Guide"
+    }
+  },
+  {
+    "_type": "page",
+    "title": "Privacy Policy",
+    "slug": {
+      "_type": "slug",
+      "current": "privacy"
+    },
+    "content": [
+      {
+        "_type": "block",
+        "_key": "privacy-placeholder",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "_key": "privacy-placeholder-span",
+            "text": "Content for privacy page",
+            "marks": []
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "metaTitle": "Privacy Policy",
+      "metaDescription": "BeatsChain - Privacy Policy"
+    }
+  },
+  {
+    "_type": "page",
+    "title": "Terms of Use",
+    "slug": {
+      "_type": "slug",
+      "current": "terms"
+    },
+    "content": [
+      {
+        "_type": "block",
+        "_key": "terms-placeholder",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "_key": "terms-placeholder-span",
+            "text": "Content for terms page",
+            "marks": []
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "metaTitle": "Terms of Use",
+      "metaDescription": "BeatsChain - Terms of Use"
+    }
+  }
+]

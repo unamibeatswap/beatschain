@@ -1,0 +1,459 @@
+/* ISRC Minting Section Styles - Extension Design Patterns */
+
+.isrc-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.isrc-card, .metadata-card, .sponsor-placement-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.isrc-card:hover, .metadata-card:hover {
+  border-color: var(--primary-green);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.1);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.card-header h3 {
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.status-badge {
+  background: var(--primary-green);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.isrc-preview {
+  margin-bottom: 20px;
+}
+
+.isrc-display {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.isrc-code {
+  font-family: 'Courier New', monospace;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--primary-green);
+  background: rgba(76, 175, 80, 0.1);
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.copy-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  background: var(--primary-green);
+  border-color: var(--primary-green);
+}
+
+.isrc-breakdown {
+  display: flex;
+  gap: 16px;
+}
+
+.isrc-part {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.isrc-part small {
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  font-weight: normal;
+}
+
+.isrc-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.integration-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+}
+
+.status-dot.active {
+  background: var(--primary-green);
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+}
+
+.metadata-targets {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.target-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+}
+
+.target-icon {
+  font-size: 16px;
+}
+
+.target-name {
+  flex: 1;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.target-status {
+  font-size: 14px;
+}
+
+/* Sponsored Content Styles */
+.sponsor-placement-card {
+  grid-column: 1 / -1;
+  border: 2px solid rgba(255, 193, 7, 0.3);
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.05), rgba(76, 175, 80, 0.05));
+}
+
+.revenue-badge {
+  background: linear-gradient(135deg, #ffc107, #ff9800);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.sponsor-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.sponsor-logo img {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+}
+
+.sponsor-message {
+  flex: 1;
+}
+
+.sponsor-message h4 {
+  color: var(--text-primary);
+  font-size: 16px;
+  margin: 0 0 8px 0;
+}
+
+.sponsor-message p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin: 0 0 12px 0;
+}
+
+.sponsor-cta {
+  background: var(--primary-green);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sponsor-cta:hover {
+  background: #45a049;
+  transform: translateY(-1px);
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.checkbox-container input {
+  display: none;
+}
+
+.checkmark {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.checkbox-container input:checked + .checkmark {
+  background: var(--primary-green);
+  border-color: var(--primary-green);
+}
+
+.checkbox-container input:checked + .checkmark::after {
+  content: '✓';
+  position: absolute;
+  top: -2px;
+  left: 2px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Registry Styles */
+.isrc-registry {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.registry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.registry-header h3 {
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.registry-count {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.registry-list {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 16px;
+}
+
+.registry-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* Minting Integration */
+.minting-integration {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
+  border: 2px solid rgba(76, 175, 80, 0.3);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.integration-header {
+  margin-bottom: 20px;
+}
+
+.integration-header h3 {
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+}
+
+.integration-checklist {
+  display: flex;
+  gap: 24px;
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.check-icon {
+  font-size: 16px;
+}
+
+.btn-large {
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.btn-arrow {
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+
+.btn-large:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* ISRC Sponsored Content Modal - Consistent with Licensing */
+.isrc-sponsor-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 20000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.isrc-sponsor-modal .modal {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.isrc-sponsor-modal .sponsor-content {
+  background: rgba(76, 175, 80, 0.05);
+  border-radius: 8px;
+  border-left: 4px solid #4CAF50;
+  border: 1px solid rgba(76, 175, 80, 0.2);
+  padding: 16px;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.isrc-sponsor-modal .sponsor-link {
+  color: #4CAF50;
+  font-size: 12px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.isrc-sponsor-modal .sponsor-link:hover {
+  color: #45a049;
+}
+
+/* Validation States */
+.status-badge.validated {
+  background: #4CAF50;
+  animation: pulse 2s infinite;
+}
+
+.status-badge.invalid {
+  background: #f44336;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+.check-item .check-icon {
+  transition: all 0.3s ease;
+}
+
+.check-item.completed .check-icon {
+  color: #4CAF50;
+  transform: scale(1.1);
+}
+
+/* Disabled State Styling */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .isrc-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .integration-checklist {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .sponsor-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .isrc-sponsor-modal .modal {
+    margin: 20px;
+    padding: 24px;
+  }
+}

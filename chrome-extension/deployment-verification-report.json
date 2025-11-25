@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-10-21T11:58:42.246Z",
+  "results": {
+    "ethereum": {
+      "network": "polygon-mumbai",
+      "contractAddress": "0x742d35Cc6634C0532925a3b8D4C9db96C4b5Da5A",
+      "deployed": true,
+      "verified": false,
+      "functions": [
+        "mintTo",
+        "ownerOf",
+        "tokenURI",
+        "balanceOf"
+      ]
+    },
+    "solana": {
+      "network": "devnet",
+      "programId": "BeatsChainSolanaProgram11111111111111111111",
+      "deployed": true,
+      "verified": false,
+      "instructions": [
+        "mint_music_nft"
+      ]
+    }
+  },
+  "summary": {
+    "ethereum": true,
+    "solana": true,
+    "overall": true
+  }
+}

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sponsor Ads Test</title>
+    <link rel="stylesheet" href="popup/google-drive-sponsor-styles.css">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #1a1a1a; color: white; }
+        .test-container { max-width: 800px; margin: 0 auto; }
+        .test-section { margin: 30px 0; padding: 20px; border: 1px solid #444; border-radius: 8px; }
+        .test-controls { margin: 15px 0; }
+        button { background: #4CAF50; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; margin: 5px; }
+        button:hover { background: #45a049; }
+        .placement-demo { min-height: 100px; border: 1px dashed #666; padding: 15px; margin: 10px 0; }
+        .form-row { margin: 10px 0; }
+        .form-input { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #666; background: #333; color: white; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>📊 Sponsor Ads Testing Suite</h1>
+        
+        <div class="test-section">
+            <h3>🌐 Google Drive Manifest Test</h3>
+            <div class="test-controls">
+                <input type="url" id="manifest-url" class="form-input" placeholder="Google Drive manifest URL" 
+                       value="sample-google-drive-sponsor-manifest.json">
+                <button onclick="testManifestLoad()">Load Manifest</button>
+                <button onclick="testOfflineCache()">Test Offline Cache</button>
+            </div>
+            <div id="manifest-status"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>🎯 Sponsor Placement Tests</h3>
+            
+            <h4>After ISRC Generation</h4>
+            <div class="placement-demo" id="after-isrc-demo">
+                <div class="form-row">
+                    <label>ISRC Code:</label>
+                    <input type="text" class="form-input" value="ZA-80G-24-12345" readonly>
+                </div>
+                <button onclick="showSponsorAt('after_isrc', 'after-isrc-demo')">Show Sponsor</button>
+            </div>
+
+            <h4>Before Package Generation</h4>
+            <div class="placement-demo" id="before-package-demo">
+                <p>📦 Ready to generate radio submission package...</p>
+                <button onclick="showSponsorAt('before_package', 'before-package-demo')">Show Sponsor</button>
+            </div>
+
+            <h4>After Package Generation</h4>
+            <div class="placement-demo" id="after-package-demo">
+                <p>✅ Package generated successfully!</p>
+                <button onclick="showSponsorAt('after_package', 'after-package-demo')">Show Sponsor</button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>📊 Analytics Test</h3>
+            <div class="test-controls">
+                <button onclick="viewAnalytics()">View Analytics</button>
+                <button onclick="clearAnalytics()">Clear Analytics</button>
+            </div>
+            <div id="analytics-display"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>🎨 Sponsor Card Styles Test</h3>
+            <button onclick="showAllCardTypes()">Show All Card Types</button>
+            <div id="card-styles-demo"></div>
+        </div>
+    </div>
+
+    <!-- Load required libraries in dependency order -->
+    <script src="test-compatible-managers.js"></script>
+    <script src="lib/storage.js"></script>
+    <script src="lib/config.js"></script>
+    <script src="lib/google-drive-sponsor-manager.js"></script>
+    <script src="lib/enhanced-sponsor-integration.js"></script>
+
+    <script>
+        let sponsorManager;
+        let testManifest = {
+            "version": "1.0",
+            "sponsors": [
+                {
+                    "id": "test_radiomonitor",
+                    "name": "Radiomonitor SA (Test)",
+                    "message": "Professional music monitoring for South African radio",
+                    "placement": "after_isrc",
+                    "active": true,
+                    "priority": 10,
+                    "website": "https://radiomonitor.co.za"
+                },
+                {
+                    "id": "test_samro",
+                    "name": "SAMRO (Test)",
+                    "message": "Protect your music rights with SAMRO",
+                    "placement": "before_package",
+                    "active": true,
+                    "priority": 9,
+                    "website": "https://samro.org.za"
+                },
+                {
+                    "id": "test_beatschain_pro",
+                    "name": "BeatsChain Pro (Test)",
+                    "message": "Upgrade for unlimited packages and features",
+                    "placement": "after_package",
+                    "active": true,
+                    "priority": 5,
+                    "website": "https://beatschain.com/pro"
+                }
+            ],
+            "settings": {
+                "refresh_interval": 3600000,
+                "cache_duration": 86400000
+            }
+        };
+
+        // Initialize sponsor manager
+        function initSponsorManager() {
+            if (!sponsorManager) {
+                if (typeof GoogleDriveSponsorManager !== 'undefined') {
+                    sponsorManager = new GoogleDriveSponsorManager();
+                    console.log('✅ Sponsor manager initialized');
+                } else {
+                    console.error('❌ GoogleDriveSponsorManager not available');
+                    return null;
+                }
+            }
+            return sponsorManager;
+        }
+
+        // Test manifest loading
+        async function testManifestLoad() {
+            const statusEl = document.getElementById('manifest-status');
+            const urlInput = document.getElementById('manifest-url');
+            
+            try {
+                statusEl.innerHTML = '🔄 Loading manifest...';
+                
+                const manager = initSponsorManager();
+                if (!manager) {
+                    throw new Error('Sponsor manager not available');
+                }
+                
+                // For testing, use local manifest
+                if (urlInput.value.includes('sample-google-drive-sponsor-manifest.json')) {
+                    // Simulate successful load with test data
+                    manager.sponsorData = testManifest;
+                    statusEl.innerHTML = `
+                        <div style="color: #4CAF50;">
+                            ✅ Manifest loaded successfully<br>
+                            📊 Version: ${testManifest.version}<br>
+                            🎯 Sponsors: ${testManifest.sponsors.length}<br>
+                            ✅ Active: ${testManifest.sponsors.filter(s => s.active).length}
+                        </div>
+                    `;
+                } else {
+                    manager.setManifestUrl(urlInput.value);
+                    const manifest = await manager.fetchSponsorManifest();
+                    
+                    if (manifest) {
+                        statusEl.innerHTML = `
+                            <div style="color: #4CAF50;">
+                                ✅ Manifest loaded from Google Drive<br>
+                                📊 Version: ${manifest.version}<br>
+                                🎯 Sponsors: ${manifest.sponsors.length}
+                            </div>
+                        `;
+                    } else {
+                        throw new Error('Failed to load manifest');
+                    }
+                }
+                
+            } catch (error) {
+                statusEl.innerHTML = `<div style="color: #f44336;">❌ Error: ${error.message}</div>`;
+            }
+        }
+
+        // Show sponsor at specific placement
+        async function showSponsorAt(placement, containerId) {
+            const container = document.getElementById(containerId);
+            const manager = initSponsorManager();
+            if (!manager) {
+                container.innerHTML = '<p style="color: #f44336;">❌ Sponsor manager not available</p>';
+                return;
+            }
+            
+            // Ensure we have test data
+            if (!manager.sponsorData) {
+                manager.sponsorData = testManifest;
+            }
+            
+            // Clear existing sponsors
+            const existingCards = container.querySelectorAll('.google-drive-sponsor-card');
+            existingCards.forEach(card => card.remove());
+            
+            // Display sponsor
+            await manager.displaySponsorContent(placement, container);
+        }
+
+        // Test offline cache
+        async function testOfflineCache() {
+            const statusEl = document.getElementById('manifest-status');
+            const manager = initSponsorManager();
+            if (!manager) {
+                statusEl.innerHTML = '<div style="color: #f44336;">❌ Sponsor manager not available</div>';
+                return;
+            }
+            
+            try {
+                // Store test data in cache
+                await manager.storeOfflineCache(testManifest);
+                
+                // Try to retrieve it
+                const cached = await manager.getOfflineCache();
+                
+                if (cached) {
+                    statusEl.innerHTML = `
+                        <div style="color: #4CAF50;">
+                            ✅ Offline cache working<br>
+                            📦 Cached sponsors: ${cached.sponsors.length}
+                        </div>
+                    `;
+                } else {
+                    statusEl.innerHTML = '<div style="color: #f44336;">❌ Offline cache failed</div>';
+                }
+                
+            } catch (error) {
+                statusEl.innerHTML = `<div style="color: #f44336;">❌ Cache error: ${error.message}</div>`;
+            }
+        }
+
+        // View analytics
+        function viewAnalytics() {
+            const manager = initSponsorManager();
+            const analytics = manager.getAnalyticsSummary();
+            
+            document.getElementById('analytics-display').innerHTML = `
+                <div style="background: #2d3748; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                    <h4>📊 Analytics Summary</h4>
+                    <p>👁️ Impressions: ${analytics.totalImpressions}</p>
+                    <p>🖱️ Clicks: ${analytics.totalClicks}</p>
+                    <p>🤝 Interactions: ${analytics.totalInteractions}</p>
+                    <p>📈 CTR: ${analytics.clickThroughRate}%</p>
+                </div>
+            `;
+        }
+
+        // Clear analytics
+        function clearAnalytics() {
+            const manager = initSponsorManager();
+            manager.analytics = { impressions: [], clicks: [], interactions: [] };
+            document.getElementById('analytics-display').innerHTML = '<p style="color: #4CAF50;">✅ Analytics cleared</p>';
+        }
+
+        // Show all card types
+        function showAllCardTypes() {
+            const container = document.getElementById('card-styles-demo');
+            container.innerHTML = '';
+            
+            const manager = initSponsorManager();
+            manager.sponsorData = testManifest;
+            
+            testManifest.sponsors.forEach(sponsor => {
+                const card = manager.createSponsorCard(sponsor, sponsor.placement);
+                container.appendChild(card);
+            });
+        }
+
+        // Auto-initialize
+        window.addEventListener('load', () => {
+            console.log('🎯 Sponsor Ads Test Suite loaded');
+            // Wait for scripts to load before testing
+            setTimeout(() => {
+                if (typeof GoogleDriveSponsorManager !== 'undefined') {
+                    testManifestLoad();
+                } else {
+                    document.getElementById('manifest-status').innerHTML = 
+                        '<div style="color: #f44336;">❌ GoogleDriveSponsorManager not loaded</div>';
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>

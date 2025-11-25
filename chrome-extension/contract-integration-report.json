@@ -1,0 +1,86 @@
+{
+  "timestamp": "2025-10-21T11:58:32.293Z",
+  "version": "1.0.0",
+  "results": {
+    "ethereum": {
+      "contract": {
+        "exists": true,
+        "size": 1331,
+        "hasOwner": true,
+        "hasMintFunction": true,
+        "hasEvents": true
+      },
+      "deployment": {
+        "configExists": true,
+        "hasNetworks": true,
+        "hasAmoy": true,
+        "hasSolidity": true
+      },
+      "integration": false,
+      "connectivity": {
+        "configured": true,
+        "url": "https://rpc.ankr.com/polygon_m...",
+        "testable": true
+      }
+    },
+    "solana": {
+      "program": {
+        "exists": true,
+        "size": 3201,
+        "hasProgram": true,
+        "hasMintFunction": true,
+        "hasMetadata": true
+      },
+      "deployment": {
+        "configExists": true,
+        "hasPrograms": true,
+        "hasProvider": true,
+        "hasWorkspace": true
+      },
+      "integration": false,
+      "connectivity": {
+        "configured": true,
+        "cluster": "devnet",
+        "testable": true
+      }
+    },
+    "frontend": {
+      "thirdwebIntegration": {
+        "exists": true,
+        "hasDualChain": true,
+        "hasSolanaSupport": true,
+        "hasEthereumSupport": true,
+        "hasNetworkSwitching": true
+      },
+      "solanaIntegration": {
+        "exists": true,
+        "hasRealMinting": true,
+        "hasWalletSupport": true,
+        "hasWeb3Integration": true
+      },
+      "walletIntegration": {
+        "exists": true,
+        "hasBlockchainHandlers": true,
+        "hasCostUpdates": true,
+        "hasWalletSwitching": true
+      },
+      "blockchainSelector": {
+        "exists": true,
+        "hasSelector": true,
+        "hasEthereumOption": true,
+        "hasSolanaOption": true,
+        "hasCostDisplay": true
+      }
+    },
+    "overall": {
+      "score": 100,
+      "status": "EXCELLENT",
+      "recommendations": []
+    }
+  },
+  "summary": {
+    "score": 100,
+    "status": "EXCELLENT",
+    "recommendations": []
+  }
+}

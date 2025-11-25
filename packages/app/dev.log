@@ -1,0 +1,60 @@
+npm WARN ignoring workspace config at /workspaces/beats/packages/app/.npmrc 
+
+> beatschain-app@1.0.0 dev
+> next dev -H 0.0.0.0
+
+ ⚠ Port 3000 is in use, using available port 3001 instead.
+   ▲ Next.js 15.3.4
+   - Local:        http://localhost:3001
+   - Network:      http://0.0.0.0:3001
+
+ ✓ Starting...
+ ⚠ Duplicate page detected. src/app/api/og/route.ts and src/app/api/og/route.tsx resolve to /api/og
+ ⚠ Duplicate page detected. src/app/api/og/route.ts and src/app/api/og/route.tsx resolve to /api/og
+ ✓ Ready in 1749ms
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 1212ms (153 modules)
+ ○ Compiling / ...
+ ⚠ ../../node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/workspaces/beats/node_modules/pino/lib'
+
+Import trace for requested module:
+../../node_modules/pino/lib/tools.js
+../../node_modules/pino/pino.js
+../../node_modules/@walletconnect/logger/dist/index.es.js
+../../node_modules/@walletconnect/universal-provider/dist/index.es.js
+../../node_modules/@reown/appkit/dist/esm/src/client/appkit-base-client.js
+../../node_modules/@reown/appkit/dist/esm/src/client/appkit.js
+../../node_modules/@reown/appkit/dist/esm/exports/react.js
+./src/context/Web3Provider.tsx
+ GET / 200 in 50598ms
+[TypeError: Cannot destructure property 'protocol' of 'window.location' as it is undefined.]
+[TypeError: Cannot destructure property 'protocol' of 'window.location' as it is undefined.]
+[TypeError: Cannot destructure property 'protocol' of 'window.location' as it is undefined.]
+[TypeError: Cannot destructure property 'protocol' of 'window.location' as it is undefined.]
+[TypeError: Cannot destructure property 'protocol' of 'window.location' as it is undefined.]
+[TypeError: Cannot destructure property 'protocol' of 'window.location' as it is undefined.]
+[TypeError: Cannot destructure property 'protocol' of 'window.location' as it is undefined.]
+[TypeError: Cannot destructure property 'protocol' of 'window.location' as it is undefined.]
+[TypeError: Cannot destructure property 'protocol' of 'window.location' as it is undefined.]
+[TypeError: Cannot destructure property 'protocol' of 'window.location' as it is undefined.]
+[TypeError: Cannot destructure property 'protocol' of 'window.location' as it is undefined.]
+[TypeError: Cannot destructure property 'protocol' of 'window.location' as it is undefined.]
+[TypeError: Cannot destructure property 'protocol' of 'window.location' as it is undefined.]
+[TypeError: Cannot destructure property 'protocol' of 'window.location' as it is undefined.]
+[TypeError: Cannot destructure property 'protocol' of 'window.location' as it is undefined.]
+[TypeError: Cannot destructure property 'protocol' of 'window.location' as it is undefined.]
+ ⚠ Duplicate page detected. src/app/api/og/route.ts and src/app/api/og/route.tsx resolve to /api/og
+ ⚠ Duplicate page detected. src/app/api/og/route.ts and src/app/api/og/route.tsx resolve to /api/og
+ ⚠ ../../node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/workspaces/beats/node_modules/pino/lib'
+
+Import trace for requested module:
+../../node_modules/pino/lib/tools.js
+../../node_modules/pino/pino.js
+../../node_modules/@walletconnect/logger/dist/index.es.js
+../../node_modules/@reown/appkit-utils/dist/esm/src/LoggerUtil.js
+../../node_modules/@reown/appkit-utils/dist/esm/exports/index.js
+../../node_modules/@reown/appkit/dist/esm/src/client/appkit.js
+../../node_modules/@reown/appkit/dist/esm/exports/react.js
+./src/context/Web3Provider.tsx

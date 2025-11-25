@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Tagging Verification Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #1a1a1a; color: white; }
+        .test-container { max-width: 800px; margin: 0 auto; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .pass { background: #2d5a2d; }
+        .fail { background: #5a2d2d; }
+        .error { background: #5a4d2d; }
+        .summary { background: #2d3a5a; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+        button { background: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #45a049; }
+        .loading { color: #ffa500; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🎧 Audio Tagging Verification Suite</h1>
+        
+        <div class="summary">
+            <h3>Test Status</h3>
+            <div id="test-status">Ready to run tests</div>
+            <button id="run-tests" onclick="runVerificationTests()">Run All Tests</button>
+        </div>
+
+        <div id="test-results"></div>
+    </div>
+
+    <!-- Load required libraries in dependency order -->
+    <script src="test-compatible-managers.js"></script>
+    <script src="lib/storage.js"></script>
+    <script src="lib/config.js"></script>
+    <script src="lib/isrc-manager.js"></script>
+    <script src="lib/audio-tagging-manager.js"></script>
+    <script src="lib/image-tagging-manager.js"></script>
+    <script src="lib/metadata-writer.js"></script>
+    <script src="test-audio-tagging-verification.js"></script>
+
+    <script>
+        let testSuite;
+
+        async function runVerificationTests() {
+            const statusEl = document.getElementById('test-status');
+            const resultsEl = document.getElementById('test-results');
+            const runBtn = document.getElementById('run-tests');
+            
+            statusEl.innerHTML = '<span class="loading">🔄 Running tests...</span>';
+            runBtn.disabled = true;
+            resultsEl.innerHTML = '';
+
+            try {
+                // Use existing ISRC manager if available
+                if (window.ISRCManager && !window.isrcManager) {
+                    window.isrcManager = new ISRCManager();
+                }
+
+                testSuite = new AudioTaggingVerificationSuite();
+                await testSuite.runAllTests();
+                
+                statusEl.innerHTML = '✅ Tests completed';
+            } catch (error) {
+                statusEl.innerHTML = `❌ Test failed: ${error.message}`;
+                console.error('Test execution failed:', error);
+            } finally {
+                runBtn.disabled = false;
+            }
+        }
+
+        // UI update function
+        window.updateVerificationUI = function(results) {
+            const resultsEl = document.getElementById('test-results');
+            
+            let html = `
+                <div class="summary">
+                    <h3>📊 Test Summary</h3>
+                    <p>✅ Passed: ${results.summary.passed}</p>
+                    <p>❌ Failed: ${results.summary.failed}</p>
+                    <p>🚨 Errors: ${results.summary.errors}</p>
+                    <p>📊 Total: ${results.summary.total}</p>
+                </div>
+            `;
+
+            results.tests.forEach(test => {
+                const className = test.status.toLowerCase();
+                const icon = test.status === 'PASS' ? '✅' : test.status === 'FAIL' ? '❌' : '🚨';
+                html += `
+                    <div class="test-result ${className}">
+                        ${icon} <strong>${test.test}</strong>: ${test.result}
+                    </div>
+                `;
+            });
+
+            if (results.recommendations.length > 0) {
+                html += '<div class="summary"><h3>📋 Recommendations</h3>';
+                results.recommendations.forEach(rec => {
+                    html += `<p>${rec}</p>`;
+                });
+                html += '</div>';
+            }
+
+            resultsEl.innerHTML = html;
+        };
+
+        // Auto-run on load if requested
+        if (window.location.search.includes('autorun')) {
+            window.addEventListener('load', runVerificationTests);
+        }
+    </script>
+</body>
+</html>

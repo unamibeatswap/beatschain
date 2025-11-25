@@ -1,0 +1,28 @@
+# Ignore development files
+.git
+.github
+node_modules
+**/node_modules
+**/.next/cache
+
+# Ignore test files
+**/*.test.js
+**/*.spec.js
+**/__tests__
+
+# Ignore hardhat package (will be deployed separately)
+packages/hardhat
+
+# Ignore MCP server (deployed separately)
+packages/mcp-server
+
+# Ignore scripts
+scripts
+test-auth-flow.js
+deploy-production.sh
+
+# Ignore local environment files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

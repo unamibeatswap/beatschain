@@ -1,0 +1,86 @@
+/* Blockchain Selector Styles */
+.blockchain-selector {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.blockchain-selector h4 {
+    margin: 0 0 12px 0;
+    color: #495057;
+    font-size: 14px;
+}
+
+.blockchain-options {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.blockchain-option {
+    flex: 1;
+    cursor: pointer;
+    display: block;
+}
+
+.blockchain-option input[type="radio"] {
+    display: none;
+}
+
+.option-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    background: white;
+    transition: all 0.2s ease;
+}
+
+.blockchain-option:hover .option-content {
+    border-color: #007bff;
+    background: #f8f9ff;
+}
+
+.blockchain-option input[type="radio"]:checked + .option-content {
+    border-color: #007bff;
+    background: #e3f2fd;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+.option-icon {
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+}
+
+.option-details strong {
+    display: block;
+    color: #212529;
+    font-size: 13px;
+}
+
+.option-details small {
+    color: #6c757d;
+    font-size: 11px;
+}
+
+.cost-comparison {
+    text-align: center;
+    padding: 8px;
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 4px;
+}
+
+.cost-info {
+    font-size: 12px;
+    color: #856404;
+}
+
+.cost-info strong {
+    color: #533f03;
+}
