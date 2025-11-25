@@ -242,7 +242,16 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
   }
 });
 
-const server = app.listen(port, '0.0.0.0', () => {
+
+
+// Mount SAMRO routes
+try {
+  const samroRoutes = require('./routes/samro');
+  app.use('/api', samroRoutes);
+  console.log('✅ SAMRO routes loaded successfully');
+} catch (e) {
+  console.warn('SAMRO routes not available:', e && e.message);
+}\n\nconst server = app.listen(port, '0.0.0.0', () => {
   console.log(`BeatsChain MCP server listening on port ${port}`);
   console.log(`Server accessible at: http://0.0.0.0:${port}`);
   console.log(`Health check: http://0.0.0.0:${port}/healthz`);
