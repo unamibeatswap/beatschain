@@ -1,0 +1,62 @@
+{
+  "packages/mcp-server": {
+    "exists": true,
+    "files": [
+      ".dockerignore",
+      ".env.example",
+      ".env.production",
+      ".env.railway",
+      ".github",
+      ".railwayignore",
+      "DOCKER-REBUILD-FORCE.txt",
+      "Dockerfile",
+      "FORCE-DEPLOY.txt",
+      "FORCE-REBUILD-NOW.txt"
+    ]
+  },
+  "chrome-extension": {
+    "exists": true,
+    "files": [
+      ".gitignore",
+      "2025-01-08-1400-ENHANCED-PROFILE-IMPLEMENTATION.md",
+      "2025-01-08-1400-UI-REDESIGN-COMPLETE.md",
+      "2025-01-16-NFT-METADATA-PHASE1-COMPLETE.md",
+      "2025-01-16-SPONSOR-SYSTEM-STANDARDIZATION-COMPLETE.md",
+      "2025-01-28-13-10-RADIO-SYSTEM-COMPREHENSIVE-INVESTIGATION.md",
+      "2025-01-28-13-10-RADIO-SYSTEM-COMPREHENSIVE-SPONSORED-CONTENT-INVESTIGATION.md",
+      "2025-01-28-13-30-RADIO-SPONSOR-COMPREHENSIVE-IMPLEMENTATION-COMPLETE.md",
+      "2025-01-28-14-15-BYPASS-ADMIN-ISSUE-ANALYSIS.md",
+      "2025-01-28-14-15-CHROME-AI-COMPETITION-PRODUCTION-STRATEGY.md"
+    ]
+  },
+  "packages/app": {
+    "exists": true,
+    "files": [
+      ".env.example",
+      ".env.production",
+      ".eslintrc.json",
+      ".npmrc",
+      "CONTENT_MIGRATION_README.md",
+      "DEPLOYMENT_CHECKLIST.md",
+      "DEPLOYMENT_PLAN.md",
+      "DEPLOYMENT_STATUS.md",
+      "DEPLOYMENT_SUMMARY.md",
+      "MIGRATION_PLAN.md"
+    ]
+  },
+  "packages/hardhat": {
+    "exists": true,
+    "files": [
+      ".env.example",
+      "README.md",
+      "artifacts",
+      "cache",
+      "check-mainnet.js",
+      "contracts",
+      "deploy-beatnft.js",
+      "deploy-creator-licensing-simple.js",
+      "deploy-creator-licensing-viem.js",
+      "deploy-creator-licensing.js"
+    ]
+  }
+}

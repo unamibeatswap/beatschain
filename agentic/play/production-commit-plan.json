@@ -1,0 +1,17 @@
+{
+  "message": "Agentic merge: SAMRO PDF module, Enhanced sponsor CRUD, N8N workflows",
+  "timestamp": "2025-11-25T14:49:52.502Z",
+  "changes": {
+    "packages/mcp-server/src/modules/split-sheet/": "SAMRO PDF processing module",
+    "packages/mcp-server/src/routes/samro.js": "SAMRO API routes",
+    "chrome-extension/lib/sponsor-crud/": "Enhanced sponsor CRUD system",
+    "chrome-extension/lib/enhanced-sponsor-manager.js": "Sponsor manager integration",
+    "n8n/workflows/": "Automation workflow placeholders"
+  },
+  "nextSteps": [
+    "Test SAMRO routes in MCP server",
+    "Validate sponsor CRUD in extension",
+    "Deploy to Railway if tests pass",
+    "Monitor system performance"
+  ]
+}
